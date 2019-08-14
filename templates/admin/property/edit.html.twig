@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block title 'Nos biens' %}
+
+{% block body %}
+<div class="container text-center mt-4">
+<h1>Edition</h1>
+{{ form_start(form) }}
+<div class="d-flex flex-column text-center">
+    <div class="col-md-4">{{ form_row(form.title) }}</div>
+    <div class="col-md-4">{{ form_row(form.description) }}</div>
+    <div class="col-md-1">{{ form_row(form.price) }}</div>
+<button class="btn btn-primary">Editer</button>
+{{ form_end(form) }}
+</div>
+{% endblock %}

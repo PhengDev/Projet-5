@@ -2,8 +2,83 @@
 {% block title property.title %}
 
 {% block body %}
-<div class="container text-center mt-4">
-<h1>{{ property.title }}</h1>
-<p>Et quoniam apud eos ut in capite mundi morborum acerbitates celsius dominantur, ad quos vel sedandos omnis professio medendi torpescit, excogitatum est adminiculum sospitale nequi amicum perferentem similia videat, additumque est cautionibus paucis remedium aliud satis validum, ut famulos percontatum missos quem ad modum valeant noti hac aegritudine colligati, non ante recipiant domum quam lavacro purgaverint corpus. ita etiam alienis oculis visa metuitur labes.</p>
-</div>
-{% endblock %}
+    <div class="flex container text-center mt-4">
+        <h1>{{ property.title }}</h1>
+    </div>
+    <br>
+    <div class="d-flex align-items-center text-center">
+        <div class="col-md-8 p-2 flex-fill ">
+            <table class="table table-striped">
+                <thead class="bg-info">
+                    <tr>
+                        <td>Type</td>
+                        <td>Couleur</td>
+                        <td>Puissance</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ property.type }}</td>
+                        <td>{{ property.color }}</td>
+                        <td>{{ property.formatedPower }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-striped">
+                <thead class="bg-info">
+                    <tr>
+                        <td>Coût énergie</td>
+                        <td>Coût combo</td>
+                        <td>Puissance combo</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ property.costenergy }}</td>
+                        <td>{{ property.costcombo }}</td>
+                        <td>{{ property.formatedPowerCombo }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-striped">
+                <thead class="bg-info">
+                    <tr>
+                        <td>Personnage</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ property.character }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-striped">
+                <thead class="bg-info">
+                    <tr>
+                        <td>Origine</td>
+                        <td>&Egrave;re</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ property.origin }}</td>
+                        <td>{{ property.era }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-striped">
+                <thead class="bg-info">
+                    <tr>
+                        <td>Description</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ property.description }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-primary p-2 flex-fill ">{{ property.price }} €</div>
+        </div>
+    </div>
+    {% endblock %}

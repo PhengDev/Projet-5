@@ -24,7 +24,7 @@ class PropertyController extends AbstractController
         $this->em = $em;
     }
     /**
-     * @Route("/biens", name="property.index")
+     * @Route("/collection", name="property.collection")
      * @return Response
      */
 
@@ -39,7 +39,7 @@ class PropertyController extends AbstractController
     }
 
     /**
-     * @Route("/biens/{slug}-{id}", name="property.show",requirements={"slug": "[a-z0.-9\-]*"})
+     * @Route("/collection/{slug}-{id}", name="property.show",requirements={"slug": "[a-z0.-9\-]*"})
      * @param Property $property
      * @return Response
      */

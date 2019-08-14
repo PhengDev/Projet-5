@@ -39,10 +39,64 @@ class Property
     private $sold = false;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $type;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $color;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $power;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $cost_energy;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $cost_combo;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $power_combo;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $character;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $origin;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $era;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $series;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $rarity;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $created_at;
-
 
     public function __construct()
     {
@@ -89,9 +143,14 @@ class Property
         return $this->price;
     }
 
-    public function getFormatedPrice(): string
+    public function getFormatedPower(): string
     {
-        return number_format($this->price, 0, '', ' ');
+        return number_format($this->power, 0, '', ' ');
+    }
+
+    public function getFormatedPowerCombo(): string
+    {
+        return number_format($this->power_combo, 0, '', ' ');
     }
 
     public function setPrice(int $price): self
@@ -121,6 +180,138 @@ class Property
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(string $color): self
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    public function getPower(): ?int
+    {
+        return $this->power;
+    }
+
+    public function setPower(int $power): self
+    {
+        $this->power = $power;
+
+        return $this;
+    }
+
+    public function getCostEnergy(): ?int
+    {
+        return $this->cost_energy;
+    }
+
+    public function setCostEnergy(int $cost_energy): self
+    {
+        $this->cost_energy = $cost_energy;
+
+        return $this;
+    }
+
+    public function getCostCombo(): ?int
+    {
+        return $this->cost_combo;
+    }
+
+    public function setCostCombo(int $cost_combo): self
+    {
+        $this->cost_combo = $cost_combo;
+
+        return $this;
+    }
+
+    public function getPowerCombo(): ?int
+    {
+        return $this->power_combo;
+    }
+
+    public function setPowerCombo(int $power_combo): self
+    {
+        $this->power_combo = $power_combo;
+
+        return $this;
+    }
+
+    public function getCharacter(): ?string
+    {
+        return $this->character;
+    }
+
+    public function setCharacter(string $character): self
+    {
+        $this->character = $character;
+
+        return $this;
+    }
+
+    public function getOrigin(): ?string
+    {
+        return $this->origin;
+    }
+
+    public function setOrigin(string $origin): self
+    {
+        $this->origin = $origin;
+
+        return $this;
+    }
+
+    public function getEra(): ?string
+    {
+        return $this->era;
+    }
+
+    public function setEra(string $era): self
+    {
+        $this->era = $era;
+
+        return $this;
+    }
+
+    public function getSeries(): ?string
+    {
+        return $this->series;
+    }
+
+    public function setSeries(string $series): self
+    {
+        $this->series = $series;
+
+        return $this;
+    }
+
+    public function getRarity(): ?string
+    {
+        return $this->rarity;
+    }
+
+    public function setRarity(string $rarity): self
+    {
+        $this->rarity = $rarity;
 
         return $this;
     }
