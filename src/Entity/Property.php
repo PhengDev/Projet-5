@@ -10,6 +10,18 @@ use Cocur\Slugify\Slugify;
  */
 class Property
 {
+    const RARITY = [
+        0=> 'Uncommon',
+        1=> 'Commom',
+        2=> 'Rare',
+        3=> 'Super Rare',
+        4=> 'Spécial Rare',
+        5=> 'Starter Rare',
+        6=> 'Secret Rare',
+        7=> 'Destruction Rare',
+        8=> 'Expansion Rare',
+        9=> 'Promotion'
+    ];
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -17,63 +29,27 @@ class Property
      */
     private $id;
 
-    /**
+     /**
      * @ORM\Column(type="string", length=255)
      */
     private $title;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $description;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $price;
-
-
-    /**
-     * @ORM\Column(type="boolean", options={"default": false})
-     */
-    private $sold = false;
-
-    /**
+     /**
      * @ORM\Column(type="string", length=255)
      */
     private $type;
 
-    /**
+     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $series;
+
+     /**
      * @ORM\Column(type="string", length=255)
      */
     private $color;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $power;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $cost_energy;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $cost_combo;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $power_combo;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $character;
-
-    /**
+     /**
      * @ORM\Column(type="string", length=255)
      */
     private $origin;
@@ -83,16 +59,51 @@ class Property
      */
     private $era;
 
-    /**
+     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $series;
+    private $personage;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="integer")
      */
     private $rarity;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $power;
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $costEnergy;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $costCombo;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $powerCombo;
+
+     /**
+     * @ORM\Column(type="boolean", options={"default": false})
+     */
+    private $sold = false;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $price;
+    
     /**
      * @ORM\Column(type="datetime")
      */
@@ -150,7 +161,7 @@ class Property
 
     public function getFormatedPowerCombo(): string
     {
-        return number_format($this->power_combo, 0, '', ' ');
+        return number_format($this->powerCombo, 0, '', ' ');
     }
 
     public function setPrice(int $price): self
@@ -222,48 +233,48 @@ class Property
 
     public function getCostEnergy(): ?int
     {
-        return $this->cost_energy;
+        return $this->costEnergy;
     }
 
-    public function setCostEnergy(int $cost_energy): self
+    public function setCostEnergy(int $costEnergy): self
     {
-        $this->cost_energy = $cost_energy;
+        $this->costEnergy = $costEnergy;
 
         return $this;
     }
 
     public function getCostCombo(): ?int
     {
-        return $this->cost_combo;
+        return $this->costCombo;
     }
 
-    public function setCostCombo(int $cost_combo): self
+    public function setCostCombo(int $costCombo): self
     {
-        $this->cost_combo = $cost_combo;
+        $this->costCombo = $costCombo;
 
         return $this;
     }
 
     public function getPowerCombo(): ?int
     {
-        return $this->power_combo;
+        return $this->powerCombo;
     }
 
-    public function setPowerCombo(int $power_combo): self
+    public function setPowerCombo(int $powerCombo): self
     {
-        $this->power_combo = $power_combo;
+        $this->powerCombo = $powerCombo;
 
         return $this;
     }
 
-    public function getCharacter(): ?string
+    public function getPersonage(): ?string
     {
-        return $this->character;
+        return $this->personage;
     }
 
-    public function setCharacter(string $character): self
+    public function setPersonage(string $personage): self
     {
-        $this->character = $character;
+        $this->personage = $personage;
 
         return $this;
     }
@@ -314,6 +325,11 @@ class Property
         $this->rarity = $rarity;
 
         return $this;
+    }
+
+    public function getRarityType(): string
+    {
+        return self::RARITY[$this->rarity];
     }
 
  

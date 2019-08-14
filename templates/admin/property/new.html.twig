@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block title 'New' %}
+
+{% block body %}
+    <div class="container text-center mt-4 ">
+        <h1>Ajouter une nouvelle carte</h1>
+       {{ include('admin/property/_form.html.twig', {button: 'Ajouter'}) }}
+    </div>
+    {% endblock %}

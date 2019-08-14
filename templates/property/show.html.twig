@@ -48,7 +48,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{ property.character }}</td>
+                        <td>{{ property.personage }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -57,12 +57,14 @@
                     <tr>
                         <td>Origine</td>
                         <td>&Egrave;re</td>
+                        <td>Rareté</td>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>{{ property.origin }}</td>
                         <td>{{ property.era }}</td>
+                        <td>{{ property.rarityType }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -79,6 +81,7 @@
                 </tbody>
             </table>
             <div class="text-primary p-2 flex-fill ">{{ property.price }} €</div>
+            <button href="#" class="btn btn-primary">Acheter</button>
         </div>
     </div>
     {% endblock %}

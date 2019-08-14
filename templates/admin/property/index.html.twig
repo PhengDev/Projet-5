@@ -2,29 +2,45 @@
 {% block title 'Administration' %}
 
 {% block body %}
-<div class="jumbotron text-center">
-<h1>Administration</h1>
-</div>
+    <div class="jumbotron text-center">
+        <h1>Administration</h1>
+    </div>
 
-<div class='container'>
-    <h2>Gérer les biens</h2>
-   
-   <table class="table table-striped">
-   <thread>
-   <tr>
-        <th>Titre</th>
-        <th>Option</th>
-    </tr>
-    </thread>
-    <tbody>
-      {% for property in properties %}
-      <tr>
-        <td>{{property.title}}</td>
-         <td>
-            <a href="{{ path('admin.property.edit', {id: property.id}) }}" class="btn btn-secondary">Editer</a>
-         </td>
-      {% endfor %}
-       </tbody>
-       </table>
-</div>
+    <div class='container text-center'>
+        <h2>Edition</h2>
+       
+        <table class="table table-striped">
+            <thread>
+                <tr>
+                    <th>Titre</th>
+                    <th>Option</th>
+                </tr>
+            </thread>
+            <tbody>
+                {% for property in properties %}
+                    <tr>
+                        <td>
+                            {{property.title}}
+                        </td>
+                        <td>
+                            <a href="{{ path('admin.property.edit', {id: property.id}) }}" class="btn btn-secondary">Editer</a>
+                            <form method="post" action="{{ path('admin.property.delete', {id: property.id}) }}" style="display: inline-block" onsubmit="return confirm('Voulez vous vraiment le supprimer ?')">
+                                <input name="_method" type="hidden" value="DELETE">
+                                <input type="hidden" name="token" value="{{ csrf_token('delete' ~ property.id) }}">
+                                <button class="btn btn-danger">Supprimer</button>
+                            </form>
+                        </td>
+                    {% endfor %}
+                </tbody>
+            </tbody>
+        </table>
+         {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <div class="text-center">
+            <a href="{{ path('admin.property.new') }}" class="btn btn-primary">Ajouter une nouvelle carte</a>
+        </div>
+    </div>
 {% endblock %}

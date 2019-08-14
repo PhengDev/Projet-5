@@ -1,0 +1,21 @@
+{{ form_start(form) }}
+<div class="d-flex flex-column pagination-centered">
+    <div class="col-md-4">{{ form_row(form.title) }}</div>
+    <div class="col-md-4">{{ form_row(form.type) }}</div>
+    <div class="col-md-4">{{ form_row(form.series) }}</div>
+    <div class="col-md-4">{{ form_row(form.color) }}</div>
+    <div class="col-md-4">{{ form_row(form.origin) }}</div>
+    <div class="col-md-4">{{ form_row(form.era) }}</div>
+    <div class="col-md-4">{{ form_row(form.personage) }}</div>
+    <div class="col-md-4">{{ form_row(form.description) }}</div>
+    <div class="col-md-4">{{ form_row(form.rarity) }}</div>
+    <div class="col-md-4">{{ form_row(form.power) }}</div>
+    <div class="col-md-4">{{ form_row(form.costEnergy) }}</div>
+    <div class="col-md-4">{{ form_row(form.costCombo) }}</div>
+    <div class="col-md-4">{{ form_row(form.powerCombo) }}</div>
+    <div class="col-md-4">{{ form_row(form.sold) }}</div>
+    <div class="col-md-1">{{ form_row(form.price) }}</div>
+    <button class="btn btn-primary">{{ button|default('Enregistrer') }}</button>
+    {{ form_widget(form) }}
+</div>
+{{ form_end(form) }}
