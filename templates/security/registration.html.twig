@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block title 'Inscription' %}
+
+{% block body %}
+  <div class="container">
+   {{ form_start(form) }}
+ 
+<div class="d-flex flex-column pagination-centered">
+    <div class="col-md-4">{{ form_row(form.username, {'label': 'Nom d\'utilisateur', 
+    'attr': {'placeholder': 'Votre nom'}}) }}</div>
+    <div class="col-md-4">{{ form_row(form.email, {'label': 'Adresse email', 
+    'attr': {'placeholder': 'Votre adresse email'}}) }}</div>
+    <div class="col-md-4">{{ form_row(form.password, {'label': 'Mot de passe', 
+    'attr': {'placeholder': 'Votre mot de passe'}}) }}</div>
+    <div class="col-md-4">{{ form_row(form.confirm_password, {'label': 'Confirmation de mot de passe', 
+    'attr': {'placeholder': 'Confirmez votre mot de passe'}}) }}</div>
+   
+    {{ form_widget(form) }}
+</div>
+ <button class="btn btn-primary">{{ button|default('Inscription') }}</button>
+{{ form_end(form) }}
+</div>
+{% endblock %}
