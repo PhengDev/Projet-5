@@ -22,11 +22,19 @@
                             <a class="nav-link {% if current_menu is defined and current_menu == 'properties' %}active{% endif %}" href="{{ path('property.collection') }}">Cartes</a>
                         </li>
                     </ul>
-                    {% if app.user %}
+                    {% if is_granted('ROLE_USER') %}
                         <div class="dropdown dropbottom">
                             <a aria-expanded="false" aria-haspopup="true" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenuLink" role="button">test</a>
                             <div aria-labelledby="dropdownMenuLink" class="dropdown-menu dropdown-menu-bottom">
-                                <a class="dropdown-item menu-hover" href="#">{{ SESSION['pseudo'] }}</a>
+                                <a class="dropdown-item menu-hover" href="#">User</a>
+                                <a class="dropdown-item menu-hover" href="{{ path('logout') }}">DECONNEXION</a>
+                            </div>
+                        </div>
+                    {% elseif is_granted('ROLE_ADMIN') %}
+                    <div class="dropdown dropbottom">
+                            <a aria-expanded="false" aria-haspopup="true" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenuLink" role="button">test</a>
+                            <div aria-labelledby="dropdownMenuLink" class="dropdown-menu dropdown-menu-bottom">
+                                <a class="dropdown-item menu-hover" href="#">Admin</a>
                                 <a class="dropdown-item menu-hover" href="{{ path('logout') }}">DECONNEXION</a>
                             </div>
                         </div>

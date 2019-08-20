@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity("username", message="Ce nom est déjà utilisé")
  * @UniqueEntity("email", message="Cette adresse email est déjà utilisé")
  */
-class User implements UserInterface,\Serializable
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -43,6 +43,11 @@ class User implements UserInterface,\Serializable
      */
     public $confirm_password;
 
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $roles = [];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -72,12 +77,17 @@ class User implements UserInterface,\Serializable
         return $this;
     }
 
-    /**
-     * @return (Rolestring)[]
-     */
-    public function getRoles()
+    public function getRoles(): array
     {
-        return ['ROLE_ADMIN'];
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        
+        if ($this->id == 1) {
+            $roles[] = 'ROLE_ADMIN';
+        } else {
+            $roles[] = 'ROLE_USER';
+        }
+        return array_unique($roles);
     }
 
     /**
@@ -89,9 +99,7 @@ class User implements UserInterface,\Serializable
     }
 
     public function eraseCredentials()
-    {
-        
-    }
+    { }
 
     public function serialize()
     {
@@ -99,6 +107,8 @@ class User implements UserInterface,\Serializable
             $this->id,
             $this->username,
             $this->password,
+            $this->email,
+            $this->roles,
         ]);
     }
     /**
@@ -111,6 +121,8 @@ class User implements UserInterface,\Serializable
             $this->id,
             $this->username,
             $this->password,
+            $this->email,
+            $this->roles,
         ) = unserialize($serialized, ['allowed_classes' => false]);
     }
 
@@ -122,6 +134,13 @@ class User implements UserInterface,\Serializable
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }

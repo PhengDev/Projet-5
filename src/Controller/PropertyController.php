@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-
+use App\Entity\Comment;
 use App\Repository\PropertyRepository;
 use App\Entity\Property;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -43,7 +43,7 @@ class PropertyController extends AbstractController
      * @param Property $property
      * @return Response
      */
-    public function show(Property $property, string $slug): Response
+    public function show(Property $property, string $slug, Comment $comment): Response
     {
         if ($property->getSlug() !== $slug){
             return $this->redirectToRoute('properties.show', [
@@ -54,6 +54,7 @@ class PropertyController extends AbstractController
         }
         return $this->render('property/show.html.twig',[
             'property' => $property,
+            'comment' => $comment,
             'current_menu' => 'properties'
         ]);
     }
