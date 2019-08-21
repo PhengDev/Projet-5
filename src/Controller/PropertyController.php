@@ -6,9 +6,11 @@ use App\Entity\Comment;
 use App\Repository\PropertyRepository;
 use App\Entity\Property;
 use Doctrine\Common\Persistence\ObjectManager;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
 class PropertyController extends AbstractController
 {
@@ -23,18 +25,20 @@ class PropertyController extends AbstractController
         $this->respository = $respository;
         $this->em = $em;
     }
+    
     /**
      * @Route("/collection", name="property.collection")
      * @return Response
      */
-
-    public function index(): Response
+    public function index(PaginatorInterface $paginator, Request $request): Response
     {
-        $property = $this->respository->findAllVisible();
+        $property = $paginator->paginate($this->respository->findAllVisible(),
+        $request->query->getInt('page',1),12);
         dump($property);
         $this->em->flush();
         return $this->render("property/index.html.twig", [
-            'current_menu' => 'properties'
+            'current_menu' => 'properties',
+            'properties' => $property
         ]);
     }
 
@@ -50,11 +54,11 @@ class PropertyController extends AbstractController
                 'id' => $property->getId(),
                 'slug' => $property->getSlug()
             ], 301);
-
+            $comment = $property->findLatest();
         }
         return $this->render('property/show.html.twig',[
             'property' => $property,
-            'comment' => $comment,
+            'comment'=> $comment,
             'current_menu' => 'properties'
         ]);
     }

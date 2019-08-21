@@ -1,57 +1,126 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>
-            {% block title %}Welcome!
-            {% endblock %}
-        </title>
-        <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" rel="stylesheet">
-        <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet"> {% block stylesheets %}{% endblock %}
-        </head>
-        <body>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-                <a class="navbar-brand" href="{{ path('home') }}">Projet 5</a>
-                <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link {% if current_menu is defined and current_menu == 'properties' %}active{% endif %}" href="{{ path('property.collection') }}">Cartes</a>
-                        </li>
-                    </ul>
-                    {% if is_granted('ROLE_USER') %}
-                        <div class="dropdown dropbottom">
-                            <a aria-expanded="false" aria-haspopup="true" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenuLink" role="button">test</a>
-                            <div aria-labelledby="dropdownMenuLink" class="dropdown-menu dropdown-menu-bottom">
-                                <a class="dropdown-item menu-hover" href="#">User</a>
-                                <a class="dropdown-item menu-hover" href="{{ path('logout') }}">DECONNEXION</a>
-                            </div>
-                        </div>
-                    {% elseif is_granted('ROLE_ADMIN') %}
-                    <div class="dropdown dropbottom">
-                            <a aria-expanded="false" aria-haspopup="true" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenuLink" role="button">test</a>
-                            <div aria-labelledby="dropdownMenuLink" class="dropdown-menu dropdown-menu-bottom">
-                                <a class="dropdown-item menu-hover" href="#">Admin</a>
-                                <a class="dropdown-item menu-hover" href="{{ path('logout') }}">DECONNEXION</a>
-                            </div>
-                        </div>
-                    {% else %}
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="{{ path('login') }}">
-                                    <i class="fas fa-sign-in-alt"></i>CONNEXION</a>
-                            </li>
-                        </ul>
-                    {% endif %}
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}Welcome!
+        {% endblock %}
+    </title>
+     <link rel="stylesheet" href="{{ asset('public/build/styles.css') }}" />
+    <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" rel="stylesheet">
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+    {% block stylesheets %}{% endblock %}
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="{{ path('home') }}">Projet 5</a>
+        <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+            class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link {% if current_menu is defined and current_menu == 'properties' %}active{% endif %}"
+                        href="{{ path('property.collection') }}">Cartes</a>
+                </li>
+            </ul>
+            <div class="sidebar-search">
+                <div class="input-group custom-search-form">
+                    <input type="text" id="search" class="form-control" placeholder="Suche...">
                 </div>
-            </nav>
-            {% block body %}{% endblock %}
-            {% block javascripts %}{% endblock %}
-            <script crossorigin="anonymous" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-            <script crossorigin="anonymous" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-            <script crossorigin="anonymous" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        </body>
-    </html>
+                <!-- /input-group -->
+            </div>
+            <ul class="nav" id="side-menu">
+                <li>
+                    <a href="#"> Entities<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level" id="entitiesNav">
+                    </ul>
+                </li>
+            </ul>
+            {% if is_granted('ROLE_USER') %}
+            <div class="dropdown dropbottom">
+                <a aria-expanded="false" aria-haspopup="true" class="btn btn-primary dropdown-toggle"
+                    data-toggle="dropdown" href="#" id="dropdownMenuLink" role="button">test</a>
+                <div aria-labelledby="dropdownMenuLink" class="dropdown-menu dropdown-menu-bottom">
+                    <a class="dropdown-item menu-hover" href="#">User</a>
+                    <a class="dropdown-item menu-hover" href="{{ path('logout') }}">DECONNEXION</a>
+                </div>
+            </div>
+            {% elseif is_granted('ROLE_ADMIN') %}
+            <div class="dropdown dropbottom">
+                <a aria-expanded="false" aria-haspopup="true" class="btn btn-primary dropdown-toggle"
+                    data-toggle="dropdown" href="#" id="dropdownMenuLink" role="button">test</a>
+                <div aria-labelledby="dropdownMenuLink" class="dropdown-menu dropdown-menu-bottom">
+                    <a class="dropdown-item menu-hover" href="{{ path('admin.property.index') }}">Admin</a>
+                    <a class="dropdown-item menu-hover" href="{{ path('logout') }}">DECONNEXION</a>
+                </div>
+            </div>
+            {% else %}
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ path('login') }}">
+                        <i class="fas fa-sign-in-alt"></i>CONNEXION</a>
+                </li>
+            </ul>
+            {% endif %}
+        </div>
+    </nav>
+    {% block body %}{% endblock %}
+    {% block javascripts %}{% endblock %}
+
+
+    <script crossorigin="anonymous" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script crossorigin="anonymous" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script crossorigin="anonymous" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            var searchRequest = null;
+            $("#search").keyup(function () {
+                var minlength = 3;
+                var that = this;
+                var value = $(this).val();
+                var entitySelector = $("#entitiesNav").html('');
+                if (value.length >= minlength) {
+                    if (searchRequest != null)
+                        searchRequest.abort();
+                    searchRequest = $.ajax({
+                        type: "GET",
+                        url: "#",
+                        data: {
+                            'q': value
+                        },
+                        dataType: "text",
+                        success: function (msg) {
+                            //we need to check if the value is the same
+                            if (value == $(that).val()) {
+                                var result = JSON.parse(msg);
+                                $.each(result, function (key, arr) {
+                                    $.each(arr, function (id, value) {
+                                        if (key == 'entities') {
+                                            if (id != 'error') {
+                                                entitySelector.append('<li><a href="/daten/' + id + '">' + value + '</a></li>');
+                                            } else {
+                                                entitySelector.append('<li class="errorLi">' + value + '</li>');
+                                            }
+                                        }
+                                    });
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

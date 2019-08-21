@@ -1,0 +1,12 @@
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="card-title">
+            <a href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">{{property.title}}</a>
+        </h5>
+        <p class="card-text">
+            {{property.seriestype}}
+        </p>
+        <div class='text-primary'>{{property.price}} €
+        </div>
+    </div>
+</div>

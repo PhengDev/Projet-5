@@ -18,8 +18,8 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{ property.type }}</td>
-                        <td>{{ property.color }}</td>
+                        <td>{{ property.typetype }}</td>
+                        <td>{{ property.colortype }}</td>
                         <td>{{ property.formatedPower }}</td>
                     </tr>
                 </tbody>
@@ -48,7 +48,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{ property.personage }}</td>
+                        <td>{{ property.personagetype }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -62,8 +62,8 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{ property.origin }}</td>
-                        <td>{{ property.era }}</td>
+                        <td>{{ property.origintype }}</td>
+                        <td>{{ property.eratype }}</td>
                         <td>{{ property.rarityType }}</td>
                     </tr>
                 </tbody>
@@ -85,12 +85,14 @@
             <button class="btn btn-primary" href="#">Acheter</button>
         </div>
         
-        <section id="commentaires">
-        {% for comment in property.comments %}
+        
+    </div>
+    <section id="commentaires">
+        {% if comment %}
             <div class="comment container"> <h2>Commentaire</h2>
                 <div class="row">
                     <div class="col-3">
-                        {{ comment.author}} (<small>{{ comment.createAt | date('d/m/Y à H:i')}}</small>)
+                        {{ comment.author}} (<small>{{ comment.createdAt | date('d/m/Y à H:i')}}</small>)
                     </div>
                     <div class="col-3">
                         {{ comment.content | raw }}
@@ -98,6 +100,5 @@
                 </div>
             </div>
         </section>
-        {% endfor %}
-    </div>
+        {% endif %}
 {% endblock %}

@@ -24,6 +24,7 @@ class UserFixtures extends Fixture
         $user = new User();
         $user->setUsername('Admin');
         $user->setPassword($this->encoder->encodePassword($user, 'azerty'));
+        $user->setEmail('Admin@hotmail.fr');
         $manager->persist($user);
         $manager->flush();
     }

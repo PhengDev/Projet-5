@@ -27,6 +27,126 @@ class Property
         8=> 'Expansion Rare',
         9=> 'Promotion'
     ];
+
+    const TYPE = [
+        0=> 'LEADER',
+        1=> 'COMBAT',
+        2=> 'EXTRA'
+    ];
+
+    const COLOR = [
+        0=> 'Rouge',
+        1=> 'Vert',
+        2=> 'Blue',
+        3=> 'Jaune',
+        4=> 'Noir',
+        5=> 'Bleu / Jaune',
+        6=> 'Rouge / Vert'
+    ];
+
+    const ORIGIN = [
+        0=> 'Alien',
+        1=> 'Androide',
+        2=> 'Armée de Chilled',
+        3=> 'Armée de Freezer',
+        4=> 'Armée de Slug',
+        5=> 'Agent de la Destruction',
+        6=> 'Brigade de Bojack',
+        7=> 'Clan de Freezer',
+        8=> 'Commando Ginyu',
+        9=> 'Cooler Toku Sentai',
+        10=> 'Démon',
+        11=> 'Démon chimérique',
+        12=> 'Equipe de Barock'
+    ];
+
+    const PERSONAGE = [
+        0=> 'Apple',
+        1=> 'Anguila',
+        2=> 'Anilaza',
+        3=> 'Assistant de Kaoi Shin',
+        4=> 'Ba (Br)',
+        5=> 'Baby',
+        6=> 'Bacterian',
+        7=> 'Banan',
+        8=> 'Bardock',
+        9=> 'Basil',
+        10=> 'Beerus',
+        11=> 'Beets (Br)',
+        12=> 'Bergamo',
+        13=> 'Beeryblue (Br)',
+        14=> 'Bido',
+        15=> 'Bizu',
+        16=> 'Bojack',
+        17=> 'Boo',
+        18=> 'Botamo',
+        19=> 'Boule à 1 étoile',
+        20=> 'Boule à 2 étoiles',
+        21=> 'Boule à 3 étoiles',
+        22=> 'Boule à 4 étoiles',
+        23=> 'Boule à 5 étoiles',
+    ];
+
+    const COSTENERGY = [
+        0=> '0',
+        1=> '1',
+        2=> '2',
+        3=> '3',
+        4=> '4',
+        5=> '5',
+        6=> '6',
+        7=> '7',
+        8=> '8',
+        9=> '9',
+        10=> '10'
+    ];
+
+    const ERA = [
+        0=> 'Baby',
+        1=> 'Bardock',
+        2=> 'Bojack',
+        3=> 'Boo',
+        4=> 'Broly',
+        5=> 'Baby',
+        6=> 'Champa',
+        7=> 'Chilled',
+        8=> 'Cooler',
+        9=> 'DBS (Broly)',
+        10=> 'Dragon Ball Minus',
+        11=> 'Freezer',
+        12=> 'Hirudegarn',
+        13=> 'Inconnu',
+        14=> 'Jaco, Le Patrouilleur Galatique',
+        15=> 'Janemba',
+        16=> 'L\'Androïde Cell',
+        17=> 'L\'Armée du ruban rouge',
+        18=> 'L\'Aventure mystique',
+        19=> 'La Légende de Shenron',
+        20=> 'La Réssurection de (F)',
+        21=> 'La Survie de L\'Univers',
+        22=> 'Le Combat des Dieux',
+        23=> 'Le Royaume des Démons',
+    ];
+
+    const SERIES = [
+        0=> 'BT1 - Booster 1 ~ Galatique Battle',
+        1=> 'BT2 - Booster 2 ~ Union Force',
+        2=> 'BT3 - Booster 3 ~ Les Mondes Croisés',
+        3=> 'BT4 - Booster 4 ~ Colossal Warfare',
+        4=> 'BT5 - Booster 5 ~ Miraculus Revival',
+        5=> 'BT6 - Booster 6 ~ Destroyer King',
+        6=> 'DBS-TB01 - Thème ~ The Tournament Of Power',
+        6=> 'DBS-TB02 - Thème ~ World Martial Art Tournament',
+        8=> 'SD1 - Started 1 ~ The Awakening',
+        9=> 'SD2 - Started 2 ~ The Extreme Evolution',
+        10=> 'SD3 - Started 3 ~ The Dark Invasion',
+        11=> 'SD4 - Started 4 ~ The Guardian Of Namekians',
+        12=> 'SD5 - Started 5 ~ The Crimson Sayan',
+        13=> 'SD6 - Started 6 ~ Resurrected Fusion',
+        14=> 'SD7 - Started 7 ~ Shenron\'s Advent',
+        15=> 'SD8 - Started 8 ~ Resing Broly'
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -40,33 +160,32 @@ class Property
     private $title;
 
      /**
-     * @Assert\Range(min=5, max=255)
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
     private $type;
 
      /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
     private $series;
 
      /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
     private $color;
 
      /**
-     * @ORM\Column(type="string", length=255)
+     *@ORM\Column(type="integer")
      */
     private $origin;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     *@ORM\Column(type="integer")
      */
     private $era;
 
      /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
     private $personage;
 
@@ -207,24 +326,24 @@ class Property
         return $this;
     }
 
-    public function getType(): ?string
+    public function getType(): ?int
     {
         return $this->type;
     }
 
-    public function setType(string $type): self
+    public function setType(int $type): self
     {
         $this->type = $type;
 
         return $this;
     }
 
-    public function getColor(): ?string
+    public function getColor(): ?int
     {
         return $this->color;
     }
 
-    public function setColor(string $color): self
+    public function setColor(int $color): self
     {
         $this->color = $color;
 
@@ -279,60 +398,60 @@ class Property
         return $this;
     }
 
-    public function getPersonage(): ?string
+    public function getPersonage(): ?int
     {
         return $this->personage;
     }
 
-    public function setPersonage(string $personage): self
+    public function setPersonage(int $personage): self
     {
         $this->personage = $personage;
 
         return $this;
     }
 
-    public function getOrigin(): ?string
+    public function getOrigin(): ?int
     {
         return $this->origin;
     }
 
-    public function setOrigin(string $origin): self
+    public function setOrigin(int $origin): self
     {
         $this->origin = $origin;
 
         return $this;
     }
 
-    public function getEra(): ?string
+    public function getEra(): ?int
     {
         return $this->era;
     }
 
-    public function setEra(string $era): self
+    public function setEra(int $era): self
     {
         $this->era = $era;
 
         return $this;
     }
 
-    public function getSeries(): ?string
+    public function getSeries(): ?int
     {
         return $this->series;
     }
 
-    public function setSeries(string $series): self
+    public function setSeries(int $series): self
     {
         $this->series = $series;
 
         return $this;
     }
 
-    public function getRarity(): ?string
+    public function getRarity(): ?int
     {
         return $this->rarity;
     }
 
-    public function setRarity(string $rarity): self
+    public function setRarity(int $rarity): self
     {
         $this->rarity = $rarity;
 
@@ -343,6 +462,42 @@ class Property
     {
         return self::RARITY[$this->rarity];
     }
+
+    public function getTypeType(): string
+    {
+        return self::TYPE[$this->type];
+    }
+
+    public function getOriginType(): string
+    {
+        return self::ORIGIN[$this->origin];
+    }
+
+    public function getColorType(): string
+    {
+        return self::COLOR[$this->color];
+    }
+
+    public function getCostEnergyType(): string
+    {
+        return self::COSTENERGY[$this->costEnergy];
+    }
+
+    public function getEraType(): string
+    {
+        return self::ERA[$this->era];
+    }
+
+    public function getSeriesType(): string
+    {
+        return self::SERIES[$this->series];
+    }
+
+    public function getPersonageType(): string
+    {
+        return self::PERSONAGE[$this->personage];
+    }
+
 
     /**
      * @return Collection|Comment[]
@@ -374,6 +529,5 @@ class Property
 
         return $this;
     }
-
  
 }
