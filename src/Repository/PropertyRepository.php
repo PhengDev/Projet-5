@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Property;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -20,7 +21,9 @@ class PropertyRepository extends ServiceEntityRepository
         parent::__construct($registry, Property::class);
     }
 
-
+    /**
+     * @return Array
+     */
     public function findAllVisible(): array
     {
         return $this->findVisibleQuery()
@@ -44,6 +47,18 @@ class PropertyRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
         ->where('p.sold = false')
     ;
+    }
+
+    public function findPropertyByString($str)
+    {
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT e
+            FROM App:Property e
+            WHERE e.title LIKE :str'
+            )
+            ->setParameter('str', '%' . $str . '%')
+            ->getResult();
     }
 
     // /**

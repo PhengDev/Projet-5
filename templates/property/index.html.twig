@@ -2,6 +2,17 @@
 {% block title 'Liste des cartes' %}
 
 {% block body %}
+   <div class="active-cyan-3 active-cyan-4 ">
+       
+            <input class="form-control" id="search" placeholder="Recherche" type="text">
+    
+        <!-- /input-group -->
+    </div>
+    <div class="container" id="side-menu">
+            <ul class="nav nav-second-level" id="entitiesNav">
+            </ul>
+    </div>
+
     <div class="container text-center mt-4">
         <h1>Liste des cartes</h1>
         <div class="row">
@@ -11,9 +22,9 @@
                 </div>
             {% endfor %}
         </div>
-         <div class="pagination">
-    {{ knp_pagination_render(properties) }}
-</div>
+        <div class="pagination">
+            {{ knp_pagination_render(properties) }}
+        </div>
     </div>
-   
+
 {% endblock %}

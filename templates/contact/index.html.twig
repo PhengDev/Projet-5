@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% block title 'Contact' %}
+
+{% block body %}
+    <div class="col-md-8 mx-auto" id="contactForm">
+        <h1 class="text-center">Contact</h1>
+        {{ form_start(form) }}
+
+        <div class="row">
+            <div class="col-md-5">{{ form_row(form.firstname, {'label': 'Nom', 
+    'attr': {'placeholder': 'Votre nom'}}) }}</div>
+            <div class="col-md-5">{{ form_row(form.lastname, {'label': 'Prénom', 
+    'attr': {'placeholder': 'Votre prénom'}}) }}</div>
+            <div class="col-md-5">{{ form_row(form.phone, {'label': 'Numéro de téléphone', 
+    'attr': {'placeholder': 'Votre numéro de téléphone'}}) }}</div>
+            <div class="col-md-5">{{ form_row(form.email, {'label': 'Adresse email', 
+    'attr': {'placeholder': 'Votre adresse email'}}) }}</div>
+        </div>
+        <div class="col-md-4">{{ form_row(form.message, {'label': 'Message', 
+    'attr': {'placeholder': 'Votre message'}}) }}</div>
+        <button class="btn btn-primary">{{ button|default('Envoyer') }}</button>
+        {{ form_end(form) }}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% if not form.vars.valid %}
+            <div class="alert alert-danger">
+                Veuillez bien remplir le formulaire
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
