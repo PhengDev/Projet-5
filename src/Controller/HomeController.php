@@ -22,10 +22,8 @@ class HomeController extends AbstractController
         $users = $user->findAll();
         return $this->render("pages/home.html.twig",[
             'properties'=>$properties,
-            'users'=>$users,
-            'results' => $properties
+            'users'=>$users
         ]);
     }
-
 
 }

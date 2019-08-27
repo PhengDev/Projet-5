@@ -21,11 +21,13 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
+        /*
         $user = new User();
         $user->setUsername('Admin');
         $user->setPassword($this->encoder->encodePassword($user, 'azerty'));
         $user->setEmail('Admin@hotmail.fr');
         $manager->persist($user);
         $manager->flush();
+        */
     }
 }

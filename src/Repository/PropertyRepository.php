@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+
 use App\Entity\Property;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;

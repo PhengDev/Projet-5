@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\User;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,6 +20,23 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
+      /**
+     * @return Array
+     */
+    public function findLatest($str): array
+    {
+        return $this->getEntityManager()
+        ->createQuery(
+            'SELECT e
+        FROM App:Property e
+        WHERE e.username LIKE :str'
+        )
+        ->setParameter('str', '%' . $str . '%')
+        ->getResult()
+    ;
+    }
+
+    
     // /**
     //  * @return User[] Returns an array of User objects
     //  */

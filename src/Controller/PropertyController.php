@@ -19,13 +19,13 @@ class PropertyController extends AbstractController
 {
 
     /**
-     * @var PropertyRespository
+     * @var Propertyrepository
      */
-    private $respository;
+    private $repository;
 
-    public function __construct(PropertyRepository $respository, ObjectManager $em)
+    public function __construct(PropertyRepository $repository, ObjectManager $em)
     {
-        $this->respository = $respository;
+        $this->repository = $repository;
         $this->em = $em;
     }
     
@@ -33,17 +33,15 @@ class PropertyController extends AbstractController
      * @Route("/collection", name="property.collection")
      * @return Response
      */
-    public function index(PaginatorInterface $paginator, Request $request, PropertyRepository $repository): Response
+    public function index(PaginatorInterface $paginator, Request $request): Response
     {
-        $property = $paginator->paginate($this->respository->findAllVisible(),
+        $property = $paginator->paginate($this->repository->findAllVisible(),
         $request->query->getInt('page',1),12);
         dump($property);
         $this->em->flush();
-        $results = $repository->findAll();
         return $this->render("property/index.html.twig", [
             'current_menu' => 'properties',
-            'properties' => $property,
-            'results' => $results
+            'properties' => $property
         ]);
     }
 
@@ -52,7 +50,7 @@ class PropertyController extends AbstractController
      * @param Property $property
      * @return Response
      */
-    public function show(Property $property, string $slug,  PropertyRepository $repository): Response
+    public function show(Property $property, string $slug): Response
     {
         if ($property->getSlug() !== $slug){
             return $this->redirectToRoute('properties.show', [
@@ -61,11 +59,9 @@ class PropertyController extends AbstractController
             ], 301);
            
         }
-        $results = $repository->findAll();
         return $this->render('property/show.html.twig',[
             'property' => $property,
-            'current_menu' => 'properties',
-            'results' => $results
+            'current_menu' => 'properties'
         ]);
     }
 
@@ -80,18 +76,26 @@ class PropertyController extends AbstractController
       $requestString = $request->get('q');
       $properties =  $em->getRepository('App:Property')->findPropertyByString($requestString);
       if(!$properties) {
-          $result['properties']['error'] = "Aucun résultat";
+          $result['properties']['error']= "Aucun résultat";
       } else {
-          $result['properties'] = $this->getRealProperty($properties);
-         
+          $result['properties'] = $this->getSlugProperty($properties);
+          
       }
       return new JsonResponse($result);
   }
  
-  public function getRealProperty($properties){
+  public function getSlugProperty($properties){
     foreach ($properties as $property){
-        $realProperty[$property->getId()] = $property->getTitle();
+        $realProperty[$property->getId()] = $property->getSlug();
     }
     return $realProperty;
 }
+
+public function getNameProperty($properties){
+    foreach ($properties as $property){
+        $realProperty[$property->getId()] = $property->getName();
+    }
+    return $realProperty;
+}
+
 }

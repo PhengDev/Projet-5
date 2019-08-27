@@ -28,7 +28,8 @@ class ContactController extends AbstractController
         }
         $form->handleRequest($request);
         return $this->render("contact/index.html.twig",[
-            'form'=> $form->createView()
+            'form'=> $form->createView(),
+            'current_menu' => 'contact'
         ]);
     }
 }

@@ -11,10 +11,16 @@
         <h2>Les derniers cartes</h2>
         <div class='row flex'>
             {% for property in properties %}
+         
                 <div class='col-3'>
                     <div class='card'>
                         <div class='card-body'>
                             <h5 class='card-title'>
+                               {% if property.filename %}
+<a href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">
+<img src="{{ vich_uploader_asset(property, 'imageFile') }}" alt="card-img-top" class="img-home-dbs">
+ </a>
+{% endif %}<br>
                                 <a href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">{{property.title}}</a>
                             </h5>
                             <div>{{property.seriestype}}</div>

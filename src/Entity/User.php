@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -124,6 +125,11 @@ class User implements UserInterface, \Serializable
             $this->email,
             $this->roles,
         ) = unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+    public function getSlug(): string
+    {
+        return (new Slugify())->slugify($this->username);
     }
 
     public function getEmail(): ?string

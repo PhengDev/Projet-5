@@ -5,7 +5,15 @@
     <div class="jumbotron text-center">
         <h1>Administration</h1>
     </div>
-
+    
+ <div class="container text-center">
+            <a href="{{ path('admin.property.new') }}" class="btn btn-primary">Ajouter une nouvelle carte</a>
+             {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        </div>
     <div class='container text-center'>
         <h2>Edition</h2>
        
@@ -34,13 +42,8 @@
                 </tbody>
             </tbody>
         </table>
-         {% for message in app.flashes('success') %}
-            <div class="alert alert-success">
-                {{ message }}
-            </div>
-        {% endfor %}
-        <div class="text-center">
-            <a href="{{ path('admin.property.new') }}" class="btn btn-primary">Ajouter une nouvelle carte</a>
+        <div class="pagination">
+            {{ knp_pagination_render(properties) }}
         </div>
     </div>
 {% endblock %}
