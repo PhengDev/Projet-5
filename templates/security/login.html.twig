@@ -2,7 +2,7 @@
 {% block title 'Connection' %}
 
 {% block body %}
-    <div class="container mt-4 text-center">
+    <div class="container page text-center">
     <h1>Connexion</h1>
         <form action="{{ path('login') }}" method="post">
             <div class="form-group">
@@ -18,7 +18,7 @@
         {% if error %}
         <div class="alert alert-danger mt-4"> {{ error.messageKey | trans(error.messagedata, 'security') }} </div>
         {% endif %}
-          <a href="{{ path('registration') }}" class="container mt-4"> S'inscrire</a>
+          <a href="{{ path('registration') }}" class="container mt-4">S'inscrire</a>
     </div>
   
    

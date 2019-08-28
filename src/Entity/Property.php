@@ -270,6 +270,11 @@ class Property
      */
     private $updated_at;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $quantity;
+
     public function __construct()
     {
         $this -> created_at = new \DateTime();
@@ -620,6 +625,18 @@ class Property
     public function setUpdatedAt(?\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getQuantity(): ?int
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(int $quantity): self
+    {
+        $this->quantity = $quantity;
 
         return $this;
     }

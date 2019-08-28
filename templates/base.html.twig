@@ -14,7 +14,7 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <nav class="navbar navbar-expand-lg nav-bg position-fixed" >
             <a class="navbar-brand" href="{{ path('home') }}"><img src="/images/logo/logo.png/" class="logo"></a>
             <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
                 <span class="navbar-toggler-icon"></span>
@@ -22,12 +22,12 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-4">
                     <li class="nav-item">
-                        <a class="nav-link {% if current_menu is defined and current_menu == 'properties' %}active{% endif %}" href="{{ path('property.collection') }}">Cartes</a>
+                        <a class="nav-link black-color{% if current_menu is defined and current_menu == 'properties' %}active btn btn-secondary{% endif %}" href="{{ path('property.collection') }}">Cartes</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav mr-4">
                     <li class="nav-item">
-                        <a class="nav-link {% if current_menu is defined and current_menu == 'contact' %}active{% endif %}" href="{{ path('contact') }}">Contact</a>
+                        <a class="nav-link black-color{% if current_menu is defined and current_menu == 'contact' %}active btn btn-secondary{% endif %}" href="{{ path('contact') }}">Contact</a>
                     </li>
                 </ul>
                 <div class="form-inline active-cyan-4 mr-4">
@@ -36,28 +36,28 @@
                     <i aria-hidden="true" class="fas fa-search"></i>
                      <div class="position-absolute bg-white" id="entitiesNav"></div>
                 </div>
-           
 
             {% if is_granted('ROLE_USER') %}
                 <div class="dropdown dropbottom">
-                    <a aria-expanded="false" aria-haspopup="true" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenuLink" role="button">test</a>
+                    <a aria-expanded="false" aria-haspopup="true" class="btn dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenuLink" role="button">test</a>
                     <div aria-labelledby="dropdownMenuLink" class="dropdown-menu dropdown-menu-bottom">
                         <a class="dropdown-item menu-hover" href="#">User</a>
                        
-                        <a class="dropdown-item menu-hover" href="{{ path('logout') }}">DECONNEXION</a>
+                        <a class="dropdown-item menu-hover" href="{{ path('logout') }}">Se déconnecter</a>
                     </div>
                 </div>
+                   {{ render(controller('App\\Controller\\PanierController::nbArticle')) }}
             {% elseif is_granted('ROLE_ADMIN') %}
 
 
                 <div class="dropdown dropbottom">
-                    <a aria-expanded="false" aria-haspopup="true" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenuLink" role="button">test</a>
+                    <a aria-expanded="false" aria-haspopup="true" class="btn dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenuLink" role="button">test</a>
                     <div aria-labelledby="dropdownMenuLink" class="dropdown-menu dropdown-menu-bottom">
                         <a class="dropdown-item menu-hover" href="{{ path('admin.property.index') }}">Admin</a>
                       
                             <a class="dropdown-item menu-hover" href="">Profil</a>
                       
-                        <a class="dropdown-item menu-hover" href="{{ path('logout') }}">DECONNEXION</a>
+                        <a class="dropdown-item menu-hover" href="{{ path('logout') }}">Se déconnecter</a>
                     </div>
                 </div>
 
@@ -65,8 +65,8 @@
             {% else %}
                 <ul class="navbar-nav nav">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ path('login') }}">
-                            <i class="fas fa-sign-in-alt mr-2"></i>CONNEXION</a>
+                        <a class="nav-link text-dark" href="{{ path('login') }}">
+                            <i class="fas fa-sign-in-alt mr-2"></i>Se connecter</a>
                     </li>
                 </ul>
             {% endif %}
@@ -79,6 +79,7 @@
    <script crossorigin="anonymous" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
    <script crossorigin="anonymous" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script type="text/javascript">
+
      class SearchBar {
     constructor({target, showResult}) {
         this.target = target;
@@ -89,7 +90,6 @@
 
     init() {
         let searchRequest = null;
-        
         const target = this.target;
          const showResult = this.showResult;
         $(target).keyup(function () {
@@ -114,17 +114,17 @@
                                 $.each(arr,  (id, resutls) => {
                                     if (key == "properties") {
                                         if (id != 'error') {
-                                            $(showResult).show();
-                                           $(showResult).append('<div class="text-danger"><a class="text-primary" href="/collection/' + resutls + '-' + id + '">' + resutls + '</a></div><hr>');
-                                        } else {
+                                        const link = document.createElement("a");
+                                        $(link).addClass("text-primary");
+                                        $(link).attr("href",'/collection/' + resutls + '-' + id + '');
+                                        $(link).html('' + resutls + ' <hr>');
+                                        $(showResult).append(link);
                                         $(showResult).show();
+                                        } else {
+                                            $(showResult).show();
                                             $(showResult).append('<div class="errorLi">' + resutls + '</div>');
                                         }
                                     }
-                                     if (keyup) {
-                                         $(showResult).html("");
-                                         $(showResult).hide();
-                                     }
                                 });
                             });
                         }
@@ -133,11 +133,10 @@
                 });
             } 
         })
-      
-        .keypress(function () {
-            $(showResult).html("");
+        .keydown(function(){
             $(showResult).hide();
-        });
+            $(showResult).html("");
+        })
     }
 }
 

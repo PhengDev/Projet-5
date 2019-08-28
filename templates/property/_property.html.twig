@@ -17,5 +17,18 @@
         </p>
         <div class='text-primary'>{{property.price}} €
         </div>
+         <form action="{{ path('panier.ajout', {'id': property.id}) }}" method="get">
+          <label for="exampleFormControlSelect1">Quantité</label>
+    <select class="form-control" id="exampleFormControlSelect1" name="qte">
+      {% for i in 1..5 %}
+      <option value="{{ i }}">{{ i }}</option>
+      {% endfor %}
+    </select>
+               
+            </p>
+            <p class="card-text">
+                <button class="btn btn-success btn-lg">Mettre au panier</button>
+            </p>
+        </form>
     </div>
 </div>

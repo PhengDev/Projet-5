@@ -72,14 +72,16 @@ class PropertyController extends AbstractController
    */
   public function searchAction(Request $request)
   {
-      $em = $this->getDoctrine()->getManager();
-      $requestString = $request->get('q');
-      $properties =  $em->getRepository('App:Property')->findPropertyByString($requestString);
+     
+    $em = $this->getDoctrine()->getManager();
+    $requestString = $request->get('q');
+    $properties =  $this->em->getRepository('App:Property')->findPropertyByString($requestString);
+
       if(!$properties) {
           $result['properties']['error']= "Aucun résultat";
       } else {
           $result['properties'] = $this->getSlugProperty($properties);
-          
+        
       }
       return new JsonResponse($result);
   }

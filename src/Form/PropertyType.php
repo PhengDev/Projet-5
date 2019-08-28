@@ -44,6 +44,7 @@ class PropertyType extends AbstractType
             ])
             ->add('description')
             ->add('price')
+            ->add('quantity')
             ->add('sold')
             ->add('imageFile', FileType::class, [
                 'required'=>false

@@ -2,7 +2,7 @@
 {% block title property.title %}
 
 {% block body %}
-    <div class="flex container text-center mt-4">
+    <div class="flex container text-center page">
         <h1>{{ property.title }}</h1>
     </div>
     <br>
@@ -88,11 +88,17 @@
             </table>
             <div class="text-primary p-2 flex-fill ">{{ property.price }}
                 €</div>
-            <button class="btn btn-primary" href="#">Acheter</button>
-        </div>
-
-
+            <form action="{{ path('panier.ajout', {'id': property.id}) }}" method="get">
+                <select class="form-control" id="exampleFormControlSelect1" name="qte">
+      {% for i in 1..5 %}
+      <option value="{{ i }}">{{ i }}</option>
+      {% endfor %}
+    </select>
+            </p>
+            <p class="card-text">
+                <button class="btn btn-success btn-lg">Mettre au panier</button>
+            </p>
+        </form>
     </div>
-    <section id="commentaires"></section>
-
-{% endblock %}
+</div>
+<section id="commentaires"></section>{% endblock %}

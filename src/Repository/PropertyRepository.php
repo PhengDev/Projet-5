@@ -50,18 +50,46 @@ class PropertyRepository extends ServiceEntityRepository
     ;
     }
 
-    public function findPropertyByString($str)
+    public function findPropertyByString($str): array
     {
-        return $this->getEntityManager()
-            ->createQuery(
-                'SELECT e
+        return  $this->getEntityManager()
+        ->createQuery(
+            'SELECT e
             FROM App:Property e
             WHERE e.title LIKE :str'
-            )
-            ->setParameter('str', '%' . $str . '%')
+        )
+        ->setParameter('str', '%'.$str.'%')
+        ->setMaxResults(10)
+        ->getResult();
+    }
+ /**
+     * @return Query
+     */
+    public function findAllByNameAscQuery(): Query
+    {
+        return $this->findByNameAscQuery()
+            ->getQuery();
+    }
+    /**
+     * @param $array
+     * @return Product[]
+     */
+    public function findArray($array): array
+    {
+        return $this->findByNameAscQuery()
+            ->andWhere('p.id IN (:array)')
+            ->setParameter('array', $array)
+            ->getQuery()
             ->getResult();
     }
-
+    /**
+     * @return QueryBuilder
+     */
+    private function findByNameAscQuery(): QueryBuilder
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.title', 'ASC');
+    }
     // /**
     //  * @return Property[] Returns an array of Property objects
     //  */
