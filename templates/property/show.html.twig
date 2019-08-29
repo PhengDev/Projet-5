@@ -3,102 +3,119 @@
 
 {% block body %}
     <div class="flex container text-center page">
+        <a class="bg-secondary text-white backup rounded p-1 mb-2" href="{{ path('property.collection') }}">Retour aux cartes</a>
         <h1>{{ property.title }}</h1>
-    </div>
-    <br>
 
-    <div class="d-flex align-items-center text-center">
-        {% if property.filename %}
-            <img src="{{ vich_uploader_asset(property, 'imageFile') | imagine_filter('large') }}" alt="card-img-top" class="ml-2 mr-2">
-        {% else %}
-            <img src="{{ '/images/properties/empty.jpg' | imagine_filter('large') }}" alt="card-img-top" class="ml-2 mr-2">
-        {% endif %}
-        <div class="col-md-8 p-2 flex-fill ">
-            <table class="table table-striped">
-                <thead class="bg-info">
-                    <tr>
-                        <td>Type</td>
-                        <td>Couleur</td>
-                        <td>Puissance</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{ property.typetype }}</td>
-                        <td>{{ property.colortype }}</td>
-                        <td>{{ property.formatedPower }}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="table table-striped">
-                <thead class="bg-info">
-                    <tr>
-                        <td>Coût énergie</td>
-                        <td>Coût combo</td>
-                        <td>Puissance combo</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{ property.costenergy }}</td>
-                        <td>{{ property.costcombo }}</td>
-                        <td>{{ property.formatedPowerCombo }}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="table table-striped">
-                <thead class="bg-info">
-                    <tr>
-                        <td>Personnage</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{ property.personagetype }}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="table table-striped">
-                <thead class="bg-info">
-                    <tr>
-                        <td>Origine</td>
-                        <td>&Egrave;re</td>
-                        <td>Rareté</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{ property.origintype }}</td>
-                        <td>{{ property.eratype }}</td>
-                        <td>{{ property.rarityType }}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="table table-striped">
-                <thead class="bg-info">
-                    <tr>
-                        <td>Description</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{ property.description }}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="text-primary p-2 flex-fill ">{{ property.price }}
-                €</div>
-            <form action="{{ path('panier.ajout', {'id': property.id}) }}" method="get">
-                <select class="form-control" id="exampleFormControlSelect1" name="qte">
-      {% for i in 1..5 %}
-      <option value="{{ i }}">{{ i }}</option>
-      {% endfor %}
-    </select>
-            </p>
-            <p class="card-text">
-                <button class="btn btn-success btn-lg">Mettre au panier</button>
-            </p>
-        </form>
+        <br>
+
+        <div class="d-flex align-items-center text-center">
+            {% if property.filename %}
+                <img src="{{ vich_uploader_asset(property, 'imageFile') | imagine_filter('large') }}" alt="card-img-top" class="ml-2 mr-2">
+            {% else %}
+                <img src="{{ '/images/properties/empty.jpg' | imagine_filter('large') }}" alt="card-img-top" class="ml-2 mr-2">
+            {% endif %}
+            <div class="col-md-8 p-2 flex-fill ">
+                <table class="table table-striped">
+                    <thead class="  {% if property.colorType == 'Vert' %}bg-success{% endif %}
+                                                    {% if property.colorType == 'Rouge' %}bg-danger{% endif %}
+                                                    {% if property.colorType == 'Noir' %}bg-dark{% endif %}
+                                                    {% if property.colorType == 'Jaune' %}bg-warning{% endif %}">
+                        <tr>
+                            <td>Type</td>
+                            <td>Couleur</td>
+                            <td>Puissance</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ property.typetype }}</td>
+                            <td>{{ property.colortype }}</td>
+                            <td>{{ property.formatedPower }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-striped">
+                    <thead class="  {% if property.colorType == 'Vert' %}bg-success{% endif %}
+                                                    {% if property.colorType == 'Rouge' %}bg-danger{% endif %}
+                                                    {% if property.colorType == 'Noir' %}bg-dark{% endif %}
+                                                    {% if property.colorType == 'Jaune' %}bg-warning{% endif %}">
+                        <tr>
+                            <td>Coût énergie</td>
+                            <td>Coût combo</td>
+                            <td>Puissance combo</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ property.costenergy }}</td>
+                            <td>{{ property.costcombo }}</td>
+                            <td>{{ property.formatedPowerCombo }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-striped">
+                    <thead class="  {% if property.colorType == 'Vert' %}bg-success{% endif %}
+                                                    {% if property.colorType == 'Rouge' %}bg-danger{% endif %}
+                                                    {% if property.colorType == 'Noir' %}bg-dark{% endif %}
+                                                    {% if property.colorType == 'Jaune' %}bg-warning{% endif %}">
+                        <tr>
+                            <td>Personnage</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ property.personagetype }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-striped">
+                    <thead class="  {% if property.colorType == 'Vert' %}bg-success{% endif %}
+                                                    {% if property.colorType == 'Rouge' %}bg-danger{% endif %}
+                                                    {% if property.colorType == 'Noir' %}bg-dark{% endif %}
+                                                    {% if property.colorType == 'Jaune' %}bg-warning{% endif %}">
+                        <tr>
+                            <td>Origine</td>
+                            <td>&Egrave;re</td>
+                            <td>Rareté</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ property.origintype }}</td>
+                            <td>{{ property.eratype }}</td>
+                            <td>{{ property.rarityType }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-striped">
+                    <thead class="  {% if property.colorType == 'Vert' %}bg-success{% endif %}
+                                                    {% if property.colorType == 'Rouge' %}bg-danger{% endif %}
+                                                    {% if property.colorType == 'Noir' %}bg-dark{% endif %}
+                                                    {% if property.colorType == 'Jaune' %}bg-warning{% endif %}">
+                        <tr>
+                            <td>Description</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ property.description }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-primary p-2 flex-fill ">{{ property.price }}
+                    €</div>
+                <form action="{{ path('panier.ajout', {'id': property.id}) }}" method="get">
+                    <select class="form-control" id="exampleFormControlSelect1" name="qte">
+                        {% for i in 1..5 %}
+                            <option value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </p>
+                <p class="card-text">
+                    <button class="btn btn-success btn-lg">Mettre au panier</button>
+                </p>
+            </form>
+        </div>
     </div>
 </div>
 <section id="commentaires"></section>{% endblock %}

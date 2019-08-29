@@ -4,7 +4,7 @@
 {% block body %}
     <div class="jumbotron text-center page">
         <h1>Administration</h1>
-    </div>
+   
     
  <div class="container text-center">
             <a href="{{ path('admin.property.new') }}" class="btn btn-primary">Ajouter une nouvelle carte</a>
@@ -42,8 +42,9 @@
                 </tbody>
             </tbody>
         </table>
-        <div class="pagination">
+        <div class="pagination ">
             {{ knp_pagination_render(properties) }}
         </div>
     </div>
+     </div>
 {% endblock %}

@@ -1,35 +1,41 @@
 {% extends 'base.html.twig' %}
-{% block title 'Bienvenue' %}
+{% block title 'Drake Ball Shop' %}
 
 {% block body %}
-    <div class="jumbotron text-center page banniere">
+    <div class="text-center page banniere">
         <h1>Drake Ball Shop</h1>
-        <p><br><br><br>Et quoniam apud eos ut in capite mundi morborum acerbitates celsius dominantur, ad quos vel sedandos omnis professio medendi torpescit, excogitatum est adminiculum sospitale nequi amicum perferentem similia videat, additumque est cautionibus paucis remedium aliud satis validum, ut famulos percontatum missos quem ad modum valeant noti hac aegritudine colligati, non ante recipiant domum quam lavacro purgaverint corpus. ita etiam alienis oculis visa metuitur labes.</p>
-    </div>
+        <img src="{{ '/images/background/boules_de_cristal.jpg'}}" alt="card-img-top" class="boules-cristal">
+        <p>Et quoniam apud eos ut in capite mundi morborum acerbitates celsius dominantur, ad quos vel sedandos omnis professio medendi torpescit, excogitatum est adminiculum sospitale nequi amicum perferentem similia videat, additumque est cautionibus paucis remedium aliud satis validum, ut famulos percontatum missos quem ad modum valeant noti hac aegritudine colligati, non ante recipiant domum quam lavacro purgaverint corpus. ita etiam alienis oculis visa metuitur labes.</p>
+    
 
-    <div class='container bg-secondary rounded text-center'>
-        <h2>Les derniers cartes sorties</h2>
+    <div class='container bg-secondary rounded text-center p-3'>
+        <h2 class="text-white">Les derniers cartes sorties</h2>
         <div class='row flex'>
             {% for property in properties %}
          
                 <div class='col-3'>
                     <div class='card'>
-                        <div class='card-body'>
+                        <div class='card-body card-home
+                        {% if property.colorType == 'Vert' %}bg-success{% endif %}
+                        {% if property.colorType == 'Rouge' %}bg-danger{% endif %}
+                        {% if property.colorType == 'Noir' %}bg-dark{% endif %}
+                        {% if property.colorType == 'Jaune' %}bg-warning{% endif %}'>
                             <h5 class='card-title'>
                                {% if property.filename %}
-<a href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">
-<img src="{{ vich_uploader_asset(property, 'imageFile') }}" alt="card-img-top" class="img-home-dbs">
- </a>
-{% endif %}<br>
+                            <a href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">
+                            <img src="{{ vich_uploader_asset(property, 'imageFile') }}" alt="card-img-top" class="img-home-dbs">
+                            </a>
+                            {% endif %}<br>
                                 <a href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">{{property.title}}</a>
                             </h5>
                             <div>{{property.seriestype}}</div>
                          
                         </div>
-                        <a class="btn btn-primary" href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">Voir</a>
+                        <a class="btn btn-primary" href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">Plus info</a>
                     </div>
                 </div>
             {% endfor %}
         </div>
+    </div>
     </div>
 {% endblock %}
