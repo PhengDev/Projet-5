@@ -72,8 +72,7 @@ class PropertyController extends AbstractController
    */
   public function searchAction(Request $request)
   {
-     
-    $em = $this->getDoctrine()->getManager();
+   
     $requestString = $request->get('q');
     $properties =  $this->em->getRepository('App:Property')->findPropertyByString($requestString);
 
@@ -81,7 +80,6 @@ class PropertyController extends AbstractController
           $result['properties']['error']= "Aucun résultat";
       } else {
           $result['properties'] = $this->getSlugProperty($properties);
-        
       }
       return new JsonResponse($result);
   }
@@ -89,13 +87,6 @@ class PropertyController extends AbstractController
   public function getSlugProperty($properties){
     foreach ($properties as $property){
         $realProperty[$property->getId()] = $property->getSlug();
-    }
-    return $realProperty;
-}
-
-public function getNameProperty($properties){
-    foreach ($properties as $property){
-        $realProperty[$property->getId()] = $property->getName();
     }
     return $realProperty;
 }

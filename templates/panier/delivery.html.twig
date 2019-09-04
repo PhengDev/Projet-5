@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block title 'Validation du commande' %}
+
+{% block body %}
+    <div class="container text-center page">
+        <h1>Mode de livraison</h1>
+        <br>
+        <form action="{{ path('panier.supprime') }}" method="post">
+            <h4>
+                Point de relais</h4>
+            <p>Veuillez selectionner votre point pour récupérer votre commande</p>
+            <input id="test" type="radio" name="point-relais" value="8 Place du Château, 30000 Nîmes" required><label for="8 Place du Château, 30000 Nîmes">8 Place du Château, 30000 Nîmes</label><br>
+            <input type="radio" name="point-relais" value="10 Rue Emile Jamais, 30000 Nîmes"><label for="10 Rue Emile Jamais, 30000 Nîmes">10 Rue Emile Jamais, 30000 Nîmes</label><br>
+            <div>
+                <a class="btn btn-primary" href="{{ path('panier') }}">Retour</a>
+                <button type="subtmit" class="btn btn-success" role="button">Valider la commande</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

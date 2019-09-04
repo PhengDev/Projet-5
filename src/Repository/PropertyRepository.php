@@ -28,6 +28,7 @@ class PropertyRepository extends ServiceEntityRepository
     public function findAllVisible(): array
     {
         return $this->findVisibleQuery()
+        ->orderBy('p.id', 'DESC')
         ->getQuery()
         ->getResult()
     ;
@@ -37,6 +38,7 @@ class PropertyRepository extends ServiceEntityRepository
     {
         return $this->findVisibleQuery()
         ->setMaxResults(4)
+        ->orderBy('p.id', 'DESC')
         ->getQuery()
         ->getResult()
     ;
@@ -62,7 +64,8 @@ class PropertyRepository extends ServiceEntityRepository
         ->setMaxResults(10)
         ->getResult();
     }
- /**
+    
+    /**
      * @return Query
      */
     public function findAllByNameAscQuery(): Query

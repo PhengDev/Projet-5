@@ -8,14 +8,14 @@
         <p>Et quoniam apud eos ut in capite mundi morborum acerbitates celsius dominantur, ad quos vel sedandos omnis professio medendi torpescit, excogitatum est adminiculum sospitale nequi amicum perferentem similia videat, additumque est cautionibus paucis remedium aliud satis validum, ut famulos percontatum missos quem ad modum valeant noti hac aegritudine colligati, non ante recipiant domum quam lavacro purgaverint corpus. ita etiam alienis oculis visa metuitur labes.</p>
     
 
-    <div class='container bg-secondary rounded text-center p-3'>
+    <div class='container bg-home rounded text-center p-3 mb-5'>
         <h2 class="text-white">Les derniers cartes sorties</h2>
         <div class='row flex'>
             {% for property in properties %}
          
                 <div class='col-3'>
                     <div class='card'>
-                        <div class='card-body card-home
+                        <div class='card-body card-home text-white
                         {% if property.colorType == 'Vert' %}bg-success{% endif %}
                         {% if property.colorType == 'Rouge' %}bg-danger{% endif %}
                         {% if property.colorType == 'Noir' %}bg-dark{% endif %}
@@ -25,11 +25,15 @@
                             <a href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">
                             <img src="{{ vich_uploader_asset(property, 'imageFile') }}" alt="card-img-top" class="img-home-dbs">
                             </a>
-                            {% endif %}<br>
+                            {% else %}
+                            <a href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">
+                            <img src="{{ '/images/properties/empty.jpg' }}" alt="card-img-top"  class="img-home-dbs">
+                            </a>
+                            {% endif %}
+                            <br>
                                 <a href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">{{property.title}}</a>
                             </h5>
                             <div>{{property.seriestype}}</div>
-                         
                         </div>
                         <a class="btn btn-primary" href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">Plus info</a>
                     </div>

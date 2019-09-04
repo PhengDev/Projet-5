@@ -1,9 +1,11 @@
-<a  {% if articles != 0 %} class="btn "  {% else %} class="btn" {% endif %} role="button" href="{{ path('panier') }}"><i class="fas fa-shopping-cart"></i> Votre Panier
+<a {% if articles != 0 %} class="btn "{% endif %} role="button" href="{{ path('panier') }}">
+    <i class="fas fa-shopping-cart"></i>
+    Votre Panier
     <span class="badge badge-light">
         {% if articles == 0 %}
-        0
+            0
         {% else %}
-        {{ articles }}
+            {{ articles }}
         {% endif %}
     </span>
 </a>

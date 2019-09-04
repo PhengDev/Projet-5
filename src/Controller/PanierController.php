@@ -28,8 +28,8 @@ class PanierController extends AbstractController {
     public function index(Request $request): Response
     {
         $session = $request->getSession();
-        $properties = $this->repository->findArray(array_keys($session->get('panier')));
         if (!$session->has('panier')) $session->set('panier', array());
+        $properties = $this->repository->findArray(array_keys($session->get('panier')));
         return $this->render('panier/panier.html.twig',[
             "properties" => $properties,
             "panier" => $session->get('panier')
@@ -43,10 +43,11 @@ class PanierController extends AbstractController {
     public  function nbArticle(Request $request)
     {
         $session = $request->getSession();
-        if (!$session->has('panier'))
+        if (!$session->has('panier')) {
             $articles = 0;
-        else
+        }else{
             $articles = count($session->get('panier'));
+        }
         return $this->render('panier/boutonPanier/boutonPanier.html.twig',[
             "articles" => $articles
         ]);
@@ -71,7 +72,7 @@ class PanierController extends AbstractController {
     }
 
     /**
-     * @Route("/suppimer", name="panier.supprime")
+     * @Route("/suppimer", name="panier.supprime",  methods="GET|POST")
      * @param Request $request
      * @return Response
      */
@@ -96,16 +97,30 @@ class PanierController extends AbstractController {
             $session->set('panier', array());
             $panier = $session->get('panier');
         if (array_key_exists($id, $panier)) {
-            if ($request->query->get('qte') != null)
+            if ($request->query->get('qte') != null) {
                 $panier[$id] = $request->query->get('qte');
+            }
         } else {
-            if ($request->query->get('qte') != null)
+            if ($request->query->get('qte') != null) {
                 $panier[$id] = $request->query->get('qte');
-            else
+            }else{
                 $panier[$id] = 1;
             $this->addFlash('success', 'Article ajouté avec succès !');
+            }
         }
         $session->set('panier', $panier);
         return $this->redirect($this->generateUrl('panier'));
+    }
+
+    /**
+     * @Route("/livraison", name="panier.livraison")
+     * @return Response
+     */
+    public function delivery(): Response
+    {
+       
+        $this->addFlash('success', 'Votre commande a bien été éffectuer !');
+        
+        return $this->render('panier/delivery.html.twig');
     }
 }

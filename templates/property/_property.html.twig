@@ -20,7 +20,7 @@
          <form action="{{ path('panier.ajout', {'id': property.id}) }}" method="get">
           <label for="exampleFormControlSelect1">Quantité</label>
     <select class="form-control" id="exampleFormControlSelect1" name="qte">
-      {% for i in 1..5 %}
+      {% for i in 1..property.quantity %}
       <option value="{{ i }}">{{ i }}</option>
       {% endfor %}
     </select>

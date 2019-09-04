@@ -4,10 +4,7 @@ namespace App\Entity;
 
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
-use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints\Image;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -36,7 +33,8 @@ class Property
     const TYPE = [
         0=> 'LEADER',
         1=> 'COMBAT',
-        2=> 'EXTRA'
+        2=> 'EXTRA',
+        3=> 'BONUS'
     ];
 
     const COLOR = [
@@ -144,7 +142,7 @@ class Property
         4=> 'BT5 - Booster 5 ~ Miraculus Revival',
         5=> 'BT6 - Booster 6 ~ Destroyer King',
         6=> 'DBS-TB01 - Thème ~ The Tournament Of Power',
-        6=> 'DBS-TB02 - Thème ~ World Martial Art Tournament',
+        7=> 'DBS-TB02 - Thème ~ World Martial Art Tournament',
         8=> 'SD1 - Started 1 ~ The Awakening',
         9=> 'SD2 - Started 2 ~ The Extreme Evolution',
         10=> 'SD3 - Started 3 ~ The Dark Invasion',
@@ -259,11 +257,6 @@ class Property
     private $created_at;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="article", orphanRemoval=true)
-     */
-    private $comments;
-
-    /**
      * @ORM\Column(type="datetime", nullable=true)
      * 
      *  * @var \DateTime|null
@@ -278,7 +271,6 @@ class Property
     public function __construct()
     {
         $this -> created_at = new \DateTime();
-        $this->comments = new ArrayCollection();
     }
    
 
@@ -533,39 +525,6 @@ class Property
     {
         return self::PERSONAGE[$this->personage];
     }
-
-
-    /**
-     * @return Collection|Comment[]
-     */
-    public function getComments(): Collection
-    {
-        return $this->comments;
-    }
-
-    public function addComment(Comment $comment): self
-    {
-        if (!$this->comments->contains($comment)) {
-            $this->comments[] = $comment;
-            $comment->setArticle($this);
-        }
-
-        return $this;
-    }
-
-    public function removeComment(Comment $comment): self
-    {
-        if ($this->comments->contains($comment)) {
-            $this->comments->removeElement($comment);
-            // set the owning side to null (unless already changed)
-            if ($comment->getArticle() === $this) {
-                $comment->setArticle(null);
-            }
-        }
-
-        return $this;
-    }
- 
 
     /**
      * Get the value of imageFile

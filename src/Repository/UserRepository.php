@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -20,20 +21,33 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-      /**
-     * @return Array
+    /**
+     * @return Query
      */
-    public function findLatest($str): array
+    public function findAllByNameAscQuery(): Query
     {
-        return $this->getEntityManager()
-        ->createQuery(
-            'SELECT e
-        FROM App:Property e
-        WHERE e.username LIKE :str'
-        )
-        ->setParameter('str', '%' . $str . '%')
-        ->getResult()
-    ;
+        return $this->findByNameAscQuery()
+            ->getQuery();
+    }
+    /**
+     * @param $array
+     * @return Product[]
+     */
+    public function findArray($array): array
+    {
+        return $this->findByNameAscQuery()
+            ->andWhere('p.id IN (:array)')
+            ->setParameter('array', $array)
+            ->getQuery()
+            ->getResult();
+    }
+    /**
+     * @return QueryBuilder
+     */
+    private function findByNameAscQuery(): QueryBuilder
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.title', 'ASC');
     }
 
     
