@@ -3,88 +3,40 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Repository\PropertyRepository;
-use App\Repository\UserRepository;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Doctrine\Common\Persistence\ObjectManager;
+use App\Form\UserType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class UserController extends AbstractController
 {
-     /**
-     * @var UserRepository
-     */
-    private $repository;
-    private $em;
-
-    public function __construct(UserRepository $repository, ObjectManager $em)
-    {
-        $this->repository = $repository;
-        $this->em = $em;
-    }
-
-     /**
-     * @Route("/profil}", name="profil")
-     * @param Request $request
-     * @return Response
-     */
-   public function index(User $user, string $slug,  UserRepository $userRepository): Response
-    {
-        
-        if ($user->getSlug() !== $slug){
-            return $this->redirectToRoute('profil', [
-                'id' => $user->getId(),
-                'slug' => $user->getSlug()
-            ], 301);
-           
-        }
-        
-        return $this->render('pages/profil.html.twig',[
-         
-            'user' => $user,
-            'current_menu' => 'properties'
-        ]);
-    }
-
-      /**
-     * @Route("/profil/{slug}-{id}", name="profil",requirements={"slug": "[a-z0.-9\-]*"})
+    /**
      * @param User $user
-     * @return Response
+     * @Route("/profil", name="profil")
+     * @Method({"GET", "POST"})
      */
-    public function show(string $slug, User $user ): Response
+    public function account(Request $request, UserPasswordEncoderInterface $encoder)
     {
-        if ($user->getSlug() !== $slug){
-            return $this->redirectToRoute('profil', [
-                'id' => $user->getId(),
-                'slug' => $user->getSlug()
-            ], 301);
-        }
-        return $this->render('pages/profil.html.twig',[
-            'user' => $user,
-            'current_menu' => 'properties'
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $form = $this->createForm(UserType::class, $this->getUser(), [
+            'validation_groups' => array('User'),
         ]);
-    }
-
-     /**
-     * @Route("/profil/property/{id}", name="profil.property.edit",  methods="GET|POST")
-     * @param User $user
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function edit(User $user, Request $request)
-    {
-        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-
+       
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->flush();
-            $this->addFlash('success', "Votre modification a été bien éffectuer !");
-            return $this->redirectToRoute('admin.property.index');
+            $em->flush();
+            $request->getSession()->getFlashBag()->add('success', 'Votre profil a été modifié');
+            $referer = $request->headers->get('referer');
+            return $this->redirect($referer);
         }
-        return $this->render("admin/property/edit.html.twig", [
-            'property' => $user,
+        return $this->render('profil/index.html.twig', [
             'form' => $form->createView()
         ]);
     }

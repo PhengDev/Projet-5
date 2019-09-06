@@ -1,13 +1,13 @@
 <div class="card mb-4">
-{% if property.filename %}
-<a href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">
-<img src="{{ vich_uploader_asset(property, 'imageFile') | imagine_filter('medium') }}" alt="card-img-top" >
- </a>
-{% else %}
-<a href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">
-<img src="{{ '/images/properties/empty.jpg' | imagine_filter('medium')  }}" alt="card-img-top" >
- </a>
-{% endif %}
+    {% if property.filename %}
+        <a href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">
+            <img src="{{ vich_uploader_asset(property, 'imageFile') | imagine_filter('medium') }}" alt="card-img-top">
+        </a>
+    {% else %}
+        <a href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">
+            <img src="{{ '/images/properties/empty.jpg' | imagine_filter('medium') }}" alt="card-img-top">
+        </a>
+    {% endif %}
     <div class="card-body">
         <h5 class="card-title">
             <a href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">{{property.title}}</a>
@@ -15,20 +15,30 @@
         <p class="card-text">
             {{property.seriestype}}
         </p>
-        <div class='text-primary'>{{property.price}} €
+        <div class='text-primary'>{{property.price}}
+            €
         </div>
-         <form action="{{ path('panier.ajout', {'id': property.id}) }}" method="get">
-          <label for="exampleFormControlSelect1">Quantité</label>
-    <select class="form-control" id="exampleFormControlSelect1" name="qte">
-      {% for i in 1..property.quantity %}
-      <option value="{{ i }}">{{ i }}</option>
-      {% endfor %}
-    </select>
-               
-            </p>
-            <p class="card-text">
+        <form action="{{ path('panier.ajout', {'id': property.id}) }}" method="get">
+           
+                <label for="exampleFormControlSelect1">Quantité</label>
+                
+                <select class="form-control" id="exampleFormControlSelect1" name="qte">
+                 {% if property.quantity == 0 %}
+                 <option value="0">0</option>
+                  {% else %}
+                    {% for i in 1..property.quantity %}
+                        <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                     {% endif %}
+                </select>
+           
+        </p>
+        <p class="card-text">
+            {% if property.quantity == 0 %}
+                <span class="btn btn-danger btn-lg">Rupture de stock</span>
+            {% else %}
                 <button class="btn btn-success btn-lg">Mettre au panier</button>
-            </p>
-        </form>
-    </div>
-</div>
+            {% endif %}
+        </p>
+    </form>
+</div></div>

@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 use App\Repository\PropertyRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,13 +12,15 @@ class PanierController extends AbstractController {
      * @var PropertyRepository
      */
     private $repository;
+    private $em;
 
     /**
      * @param PropertyRepository $repository
      */
-    public function __construct(PropertyRepository $repository)
+    public function __construct(PropertyRepository $repository, ObjectManager $em)
     {
         $this->repository = $repository;
+        $this->em = $em;
     }
 
     /**
@@ -72,7 +75,7 @@ class PanierController extends AbstractController {
     }
 
     /**
-     * @Route("/suppimer", name="panier.supprime",  methods="GET|POST")
+     * @Route("/suppimer", name="panier.supprime")
      * @param Request $request
      * @return Response
      */
@@ -81,6 +84,22 @@ class PanierController extends AbstractController {
         $session = $request->getSession();
         $session->clear();
         $session->set('panier', array());
+        $this->addFlash('success', 'Votre panier à bien été vider');
+        return $this->redirect($this->generateUrl('panier'));
+    }
+
+    /**
+     * @Route("/validation", name="panier.validation",  methods="GET|POST")
+     * @param Request $request
+     * @return Response
+     */
+    public function validation(Request $request): Response
+    {
+        $session = $request->getSession();
+        $session->clear();
+        $session->set('panier', array());
+       
+        $this->addFlash('success', 'Votre commande a bien été éffectuer, Merci pour votre achat !');
         return $this->redirect($this->generateUrl('panier'));
     }
 
@@ -117,10 +136,7 @@ class PanierController extends AbstractController {
      * @return Response
      */
     public function delivery(): Response
-    {
-       
-        $this->addFlash('success', 'Votre commande a bien été éffectuer !');
-        
+    {  
         return $this->render('panier/delivery.html.twig');
     }
 }

@@ -10,7 +10,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity("username", message="Ce nom est déjà utilisé")
  * @UniqueEntity("email", message="Cette adresse email est déjà utilisé")
  */
 class User implements UserInterface, \Serializable
@@ -40,14 +39,74 @@ class User implements UserInterface, \Serializable
     private $email;
 
     /**
+     * @ORM\Column(name="is_active", type="boolean")
+     */
+    private $isActive;
+
+    public function __construct()
+    {
+        $this->isActive = true;
+    }
+    
+
+    /**
      *  @Assert\EqualTo(propertyPath="password", message="Vos mots de passe ne se correspondes pas")
      */
     public $confirm_password;
+    
 
     /**
      * @ORM\Column(type="array")
      */
     private $roles = [];
+
+     // ...
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @var \DateTime
+     */
+    private $passwordRequestedAt;
+
+    /**
+    * @var string
+    *
+    * @ORM\Column(type="string", length=255, nullable=true)
+    */
+    private $token;
+
+    /*
+     * Get passwordRequestedAt
+     */
+    public function getPasswordRequestedAt()
+    {
+        return $this->passwordRequestedAt;
+    }
+
+    /*
+     * Set passwordRequestedAt
+     */
+    public function setPasswordRequestedAt($passwordRequestedAt)
+    {
+        $this->passwordRequestedAt = $passwordRequestedAt;
+        return $this;
+    }
+
+    /*
+     * Get token
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /*
+     * Set token
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+        return $this;
+    }
 
     public function getId(): ?int
     {
@@ -109,7 +168,7 @@ class User implements UserInterface, \Serializable
             $this->username,
             $this->password,
             $this->email,
-            $this->roles,
+            $this->isActive
         ]);
     }
     /**
@@ -123,7 +182,7 @@ class User implements UserInterface, \Serializable
             $this->username,
             $this->password,
             $this->email,
-            $this->roles,
+            $this->isActive
         ) = unserialize($serialized, ['allowed_classes' => false]);
     }
 
@@ -148,6 +207,17 @@ class User implements UserInterface, \Serializable
     {
         $this->roles = $roles;
 
+        return $this;
+    }
+
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+ 
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
         return $this;
     }
 }

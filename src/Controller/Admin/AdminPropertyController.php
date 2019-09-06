@@ -66,8 +66,11 @@ class AdminPropertyController extends AbstractController
      * @param Property $property
      * @return Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function delete(Property $property, Request $request)
+    public function delete(Property $property, Request $request, $id)
     {   
+        $em = $this->getDoctrine()->getManager();
+        $property = $em->getRepository(Property::class)->find($id);
+        $property->setQuantity(5);
         if ($this->isCsrfTokenValid('delete' . $property->getId(), $request->get('token'))) {
             $this->em->remove($property);
             $this->em->flush();

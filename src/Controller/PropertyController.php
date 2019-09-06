@@ -22,6 +22,7 @@ class PropertyController extends AbstractController
      * @var Propertyrepository
      */
     private $repository;
+    private $em;
 
     public function __construct(PropertyRepository $repository, ObjectManager $em)
     {

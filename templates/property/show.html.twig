@@ -17,10 +17,10 @@
             <div class="col-md-8 p-2 flex-fill ">
                 <table class="table table-striped">
                     <thead class="text-white  {% if property.colorType == 'Vert' %}bg-success{% endif %}
-                                                    {% if property.colorType == 'Rouge' %}bg-danger{% endif %}
-                                                     {% if property.colorType == 'Blue' %}bg-primary{% endif %}
-                                                    {% if property.colorType == 'Noir' %}bg-dark{% endif %}
-                                                    {% if property.colorType == 'Jaune' %}bg-warning{% endif %}">
+                                                                                                            {% if property.colorType == 'Rouge' %}bg-danger{% endif %}
+                                                                                                             {% if property.colorType == 'Blue' %}bg-primary{% endif %}
+                                                                                                            {% if property.colorType == 'Noir' %}bg-dark{% endif %}
+                                                                                                            {% if property.colorType == 'Jaune' %}bg-warning{% endif %}">
                         <tr>
                             <td>Type</td>
                             <td>Couleur</td>
@@ -37,10 +37,10 @@
                 </table>
                 <table class="table table-striped">
                     <thead class="text-white  {% if property.colorType == 'Vert' %}bg-success{% endif %}
-                                                    {% if property.colorType == 'Rouge' %}bg-danger{% endif %}
-                                                    {% if property.colorType == 'Blue' %}bg-primary{% endif %}
-                                                    {% if property.colorType == 'Noir' %}bg-dark{% endif %}
-                                                    {% if property.colorType == 'Jaune' %}bg-warning{% endif %}">
+                                                                                                            {% if property.colorType == 'Rouge' %}bg-danger{% endif %}
+                                                                                                            {% if property.colorType == 'Blue' %}bg-primary{% endif %}
+                                                                                                            {% if property.colorType == 'Noir' %}bg-dark{% endif %}
+                                                                                                            {% if property.colorType == 'Jaune' %}bg-warning{% endif %}">
                         <tr>
                             <td>Coût énergie</td>
                             <td>Coût combo</td>
@@ -57,10 +57,10 @@
                 </table>
                 <table class="table table-striped">
                     <thead class="text-white  {% if property.colorType == 'Vert' %}bg-success{% endif %}
-                                                    {% if property.colorType == 'Rouge' %}bg-danger{% endif %}
-                                                     {% if property.colorType == 'Blue' %}bg-primary{% endif %}
-                                                    {% if property.colorType == 'Noir' %}bg-dark{% endif %}
-                                                    {% if property.colorType == 'Jaune' %}bg-warning{% endif %}">
+                                                                                                            {% if property.colorType == 'Rouge' %}bg-danger{% endif %}
+                                                                                                             {% if property.colorType == 'Blue' %}bg-primary{% endif %}
+                                                                                                            {% if property.colorType == 'Noir' %}bg-dark{% endif %}
+                                                                                                            {% if property.colorType == 'Jaune' %}bg-warning{% endif %}">
                         <tr>
                             <td>Personnage</td>
                         </tr>
@@ -73,10 +73,10 @@
                 </table>
                 <table class="table table-striped">
                     <thead class="text-white  {% if property.colorType == 'Vert' %}bg-success{% endif %}
-                                                    {% if property.colorType == 'Rouge' %}bg-danger{% endif %}
-                                                     {% if property.colorType == 'Blue' %}bg-primary{% endif %}
-                                                    {% if property.colorType == 'Noir' %}bg-dark{% endif %}
-                                                    {% if property.colorType == 'Jaune' %}bg-warning{% endif %}">
+                                                                                                            {% if property.colorType == 'Rouge' %}bg-danger{% endif %}
+                                                                                                             {% if property.colorType == 'Blue' %}bg-primary{% endif %}
+                                                                                                            {% if property.colorType == 'Noir' %}bg-dark{% endif %}
+                                                                                                            {% if property.colorType == 'Jaune' %}bg-warning{% endif %}">
                         <tr>
                             <td>Origine</td>
                             <td>&Egrave;re</td>
@@ -93,10 +93,10 @@
                 </table>
                 <table class="table table-striped">
                     <thead class="text-white  {% if property.colorType == 'Vert' %}bg-success{% endif %}
-                                                    {% if property.colorType == 'Rouge' %}bg-danger{% endif %}
-                                                     {% if property.colorType == 'Blue' %}bg-primary{% endif %}
-                                                    {% if property.colorType == 'Noir' %}bg-dark{% endif %}
-                                                    {% if property.colorType == 'Jaune' %}bg-warning{% endif %}">
+                                                                                                            {% if property.colorType == 'Rouge' %}bg-danger{% endif %}
+                                                                                                             {% if property.colorType == 'Blue' %}bg-primary{% endif %}
+                                                                                                            {% if property.colorType == 'Noir' %}bg-dark{% endif %}
+                                                                                                            {% if property.colorType == 'Jaune' %}bg-warning{% endif %}">
                         <tr>
                             <td>Description</td>
                         </tr>
@@ -111,13 +111,21 @@
                     €</div>
                 <form action="{{ path('panier.ajout', {'id': property.id}) }}" method="get">
                     <select class="form-control" id="exampleFormControlSelect1" name="qte">
-                        {% for i in 1..5 %}
-                            <option value="{{ i }}">{{ i }}</option>
-                        {% endfor %}
+                        {% if property.quantity == 0 %}
+                            <option value="0">0</option>
+                        {% else %}
+                            {% for i in 1..property.quantity %}
+                                <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        {% endif %}
                     </select>
                 </p>
                 <p class="card-text">
-                    <button class="btn btn-success btn-lg">Mettre au panier</button>
+                    {% if property.quantity == 0 %}
+                        <span class="btn btn-danger btn-lg">Rupture de stock</span>
+                    {% else %}
+                        <button class="btn btn-success btn-lg">Mettre au panier</button>
+                    {% endif %}
                 </p>
             </form>
         </div>

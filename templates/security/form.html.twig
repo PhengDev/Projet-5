@@ -1,0 +1,14 @@
+{{ form_start(form) }}
+<div class="d-flex flex-column">
+    <div class="col mb-2">{{ form_label(form.username, 'Nom d\'utilisateur : ') }}</div>
+     <div class="col mb-2">{{ form_widget(form.username) }} </div>
+      <div class="col mb-2">{{ form_label(form.email, 'Adresse email : ') }}</div>
+     <div class="col mb-2">{{ form_widget(form.email) }} </div>
+     <div class="col mb-2">{{ form_label(form.password, 'Mot de passe : ') }}</div>
+     <div class="col mb-2">{{ form_widget(form.password) }} </div>
+     <div class="col mb-2">{{ form_label(form.confirm_password, 'Confirmation de mot de passe : ') }}</div>
+     <div class="col">{{ form_widget(form.confirm_password) }} </div>
+    
+</div>
+ <button class="btn btn-primary mt-5">{{ button|default('Inscription') }}</button>
+{{ form_end(form) }}

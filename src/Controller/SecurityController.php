@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserType;
 use App\Form\RegistrationType;
 use App\Repository\PropertyRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,13 +38,16 @@ class SecurityController extends AbstractController
     public function registration(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
     {
         $user = new User();
-        $form = $this->createForm(RegistrationType::class, $user);
+        $form = $this->createForm(UserType::class, $user,[
+           'validation_groups' => array('User', 'registration'),
+        ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
             $manager->persist($user);
             $manager->flush();
+            return $this->redirect($this->generateUrl('login'));
         }
         return $this->render('security/registration.html.twig', [
             'form' => $form->createView()
