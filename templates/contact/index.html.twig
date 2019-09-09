@@ -6,20 +6,24 @@
         <h1>Contact</h1>
         <div class="mt-4" id="contactForm">
         {{ form_start(form) }}
-        <div class="row d-flex flex-column">
-            <div class="col">{{ form_widget(form.firstname, {'label': 'Nom', 
-    'attr': {'placeholder': 'Votre nom'}}) }}</div>
-            <div class="col">{{ form_widget(form.lastname, {'label': 'Prénom', 
-    'attr': {'placeholder': 'Votre prénom'}}) }}</div>
-            <div class="col">{{ form_widget(form.phone, {'label': 'Numéro de téléphone', 
-    'attr': {'placeholder': 'Votre numéro de téléphone'}}) }}</div>
-            <div class="col">{{ form_widget(form.email, {'label': 'Adresse email', 
-    'attr': {'placeholder': 'Votre adresse email'}}) }}</div>
-        <div class="col">{{ form_label(form.message) }}</div>
+        <div class="d-flex flex-column">
+         
+            <div class="col">{{ form_label(form.firstname,'Nom') }}</div>
+        <div class="col">{{ form_widget(form.firstname) }} </div>
+        
+           <div class="col">{{ form_label(form.lastname,'Prénom') }}</div>
+        <div class="col">{{ form_widget(form.lastname) }} </div>
+        </div>
+            <div class="col">{{ form_label(form.phone,'Numéro de téléphone') }}</div>
+        <div class="col">{{ form_widget(form.phone) }} </div>
+        <div class="col">{{ form_label(form.email,'Adresse email') }}</div>
+        <div class="col">{{ form_widget(form.email) }} </div>
+        <div class="col">{{ form_label(form.message,'Votre message') }}</div>
         <div class="col">{{ form_widget(form.message) }} </div>
     </div>
+      <button class="btn btn-primary">{{ button|default('Envoyer') }}</button>
      </div>
-        <button class="btn btn-primary">{{ button|default('Envoyer') }}</button>
+      
         {{ form_end(form) }}
         {% for message in app.flashes('success') %}
             <div class="alert alert-success">

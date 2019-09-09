@@ -38,7 +38,6 @@ class PropertyController extends AbstractController
     {
         $property = $paginator->paginate($this->repository->findAllVisible(),
         $request->query->getInt('page',1),12);
-        dump($property);
         $this->em->flush();
         return $this->render("property/index.html.twig", [
             'current_menu' => 'properties',

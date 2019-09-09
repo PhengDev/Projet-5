@@ -1,8 +1,25 @@
 {% extends ('base.html.twig') %}
 
 {% block body %}
-<div class="text-center page">
-    <h1 class="text-center">Mon compte</h1>
-    {{include('security/form.html.twig')}}
+    <div class="text-center page">
+        <h1>Mon compte</h1>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <div class="jumbotron">
+            <p>Nom d'utilisateur :
+                {{ app.user.username }}</p>
+            <p>Adresse email :
+                {{ app.user.email }}</p>
+            <p>Inscrit en tant que :
+                {% if is_granted('ROLE_USER') %}
+                    Membre</p>
+            {% elseif is_granted('ROLE_ADMIN') %}
+                Admin</p>
+        {% endif %}
+        <a class="btn btn-primary" href="{{path('profil.edit')}}">Editer son profil</a>
+         <a class="btn btn-primary" href="{{path('profil.password')}}">Changer son mot de passe</a>
     </div>
-{% endblock %}
+</div>{% endblock %}

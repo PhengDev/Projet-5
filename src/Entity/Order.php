@@ -130,6 +130,7 @@ class Order
         $this->commande = $commande;
         return $this;
     }
+    
     /**
      * Get commande
      *
@@ -139,6 +140,7 @@ class Order
     {
         return $this->commande;
     }
+
     /**
      * Set user
      *

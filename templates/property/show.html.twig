@@ -2,8 +2,8 @@
 {% block title property.title %}
 
 {% block body %}
-    <div class="flex container text-center page">
-        <a class="bg-secondary text-white backup rounded p-1 mb-2" href="{{ path('property.collection') }}">Retour aux cartes</a>
+    <div class="flex container text-center page mb-2">
+        <a class="bg-primary text-white backup rounded p-1 mb-2" href="{{ path('property.collection') }}">Retour aux cartes</a>
         <h1>{{ property.title }}</h1>
 
         <br>
@@ -16,11 +16,13 @@
             {% endif %}
             <div class="col-md-8 p-2 flex-fill ">
                 <table class="table table-striped">
-                    <thead class="text-white  {% if property.colorType == 'Vert' %}bg-success{% endif %}
-                                                                                                            {% if property.colorType == 'Rouge' %}bg-danger{% endif %}
-                                                                                                             {% if property.colorType == 'Blue' %}bg-primary{% endif %}
-                                                                                                            {% if property.colorType == 'Noir' %}bg-dark{% endif %}
-                                                                                                            {% if property.colorType == 'Jaune' %}bg-warning{% endif %}">
+                    <thead class="text-white    {% if property.colorType == 'Vert' %}bg-success
+                                            {% elseif property.colorType == 'Rouge' %}bg-danger
+                                            {% elseif property.colorType == 'Bleu' %}bg-primary
+                                            {% elseif property.colorType == 'Noir' %}bg-dark
+                                            {% elseif property.colorType == 'Jaune' %}bg-warning
+                                            {% elseif property.colorType == 'Bleu / Jaune' %}bg-primary
+                                             {% elseif property.colorType == 'Rouge / Vert' %}bg-danger{% endif %}">
                         <tr>
                             <td>Type</td>
                             <td>Couleur</td>
@@ -36,11 +38,13 @@
                     </tbody>
                 </table>
                 <table class="table table-striped">
-                    <thead class="text-white  {% if property.colorType == 'Vert' %}bg-success{% endif %}
-                                                                                                            {% if property.colorType == 'Rouge' %}bg-danger{% endif %}
-                                                                                                            {% if property.colorType == 'Blue' %}bg-primary{% endif %}
-                                                                                                            {% if property.colorType == 'Noir' %}bg-dark{% endif %}
-                                                                                                            {% if property.colorType == 'Jaune' %}bg-warning{% endif %}">
+                      <thead class="text-white    {% if property.colorType == 'Vert' %}bg-success
+                                            {% elseif property.colorType == 'Rouge' %}bg-danger
+                                            {% elseif property.colorType == 'Bleu' %}bg-primary
+                                            {% elseif property.colorType == 'Noir' %}bg-dark
+                                            {% elseif property.colorType == 'Jaune' %}bg-warning
+                                            {% elseif property.colorType == 'Bleu / Jaune' %}bg-warning
+                                             {% elseif property.colorType == 'Rouge / Vert' %}bg-success{% endif %}">
                         <tr>
                             <td>Coût énergie</td>
                             <td>Coût combo</td>
@@ -56,11 +60,13 @@
                     </tbody>
                 </table>
                 <table class="table table-striped">
-                    <thead class="text-white  {% if property.colorType == 'Vert' %}bg-success{% endif %}
-                                                                                                            {% if property.colorType == 'Rouge' %}bg-danger{% endif %}
-                                                                                                             {% if property.colorType == 'Blue' %}bg-primary{% endif %}
-                                                                                                            {% if property.colorType == 'Noir' %}bg-dark{% endif %}
-                                                                                                            {% if property.colorType == 'Jaune' %}bg-warning{% endif %}">
+                      <thead class="text-white    {% if property.colorType == 'Vert' %}bg-success
+                                            {% elseif property.colorType == 'Rouge' %}bg-danger
+                                            {% elseif property.colorType == 'Bleu' %}bg-primary
+                                            {% elseif property.colorType == 'Noir' %}bg-dark
+                                            {% elseif property.colorType == 'Jaune' %}bg-warning
+                                            {% elseif property.colorType == 'Bleu / Jaune' %}bg-primary
+                                             {% elseif property.colorType == 'Rouge / Vert' %}bg-danger{% endif %}">
                         <tr>
                             <td>Personnage</td>
                         </tr>
@@ -72,11 +78,13 @@
                     </tbody>
                 </table>
                 <table class="table table-striped">
-                    <thead class="text-white  {% if property.colorType == 'Vert' %}bg-success{% endif %}
-                                                                                                            {% if property.colorType == 'Rouge' %}bg-danger{% endif %}
-                                                                                                             {% if property.colorType == 'Blue' %}bg-primary{% endif %}
-                                                                                                            {% if property.colorType == 'Noir' %}bg-dark{% endif %}
-                                                                                                            {% if property.colorType == 'Jaune' %}bg-warning{% endif %}">
+                     <thead class="text-white    {% if property.colorType == 'Vert' %}bg-success
+                                            {% elseif property.colorType == 'Rouge' %}bg-danger
+                                            {% elseif property.colorType == 'Bleu' %}bg-primary
+                                            {% elseif property.colorType == 'Noir' %}bg-dark
+                                            {% elseif property.colorType == 'Jaune' %}bg-warning
+                                            {% elseif property.colorType == 'Bleu / Jaune' %}bg-warning
+                                             {% elseif property.colorType == 'Rouge / Vert' %}bg-success{% endif %}">
                         <tr>
                             <td>Origine</td>
                             <td>&Egrave;re</td>
@@ -92,11 +100,13 @@
                     </tbody>
                 </table>
                 <table class="table table-striped">
-                    <thead class="text-white  {% if property.colorType == 'Vert' %}bg-success{% endif %}
-                                                                                                            {% if property.colorType == 'Rouge' %}bg-danger{% endif %}
-                                                                                                             {% if property.colorType == 'Blue' %}bg-primary{% endif %}
-                                                                                                            {% if property.colorType == 'Noir' %}bg-dark{% endif %}
-                                                                                                            {% if property.colorType == 'Jaune' %}bg-warning{% endif %}">
+                    <thead class="text-white    {% if property.colorType == 'Vert' %}bg-success
+                                            {% elseif property.colorType == 'Rouge' %}bg-danger
+                                            {% elseif property.colorType == 'Bleu' %}bg-primary
+                                            {% elseif property.colorType == 'Noir' %}bg-dark
+                                            {% elseif property.colorType == 'Jaune' %}bg-warning
+                                            {% elseif property.colorType == 'Bleu / Jaune' %}bg-primary
+                                             {% elseif property.colorType == 'Rouge / Vert' %}bg-danger{% endif %}">
                         <tr>
                             <td>Description</td>
                         </tr>
@@ -131,4 +141,4 @@
         </div>
     </div>
 </div>
-<section id="commentaires"></section>{% endblock %}
+{% endblock %}

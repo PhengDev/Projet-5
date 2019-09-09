@@ -46,11 +46,11 @@ class PanierController extends AbstractController {
     public  function nbArticle(Request $request)
     {
         $session = $request->getSession();
-        if (!$session->has('panier')) {
+        if (!$session->has('panier')) 
             $articles = 0;
-        }else{
+        else
             $articles = count($session->get('panier'));
-        }
+        
         return $this->render('panier/boutonPanier/boutonPanier.html.twig',[
             "articles" => $articles
         ]);
@@ -118,14 +118,16 @@ class PanierController extends AbstractController {
         if (array_key_exists($id, $panier)) {
             if ($request->query->get('qte') != null) {
                 $panier[$id] = $request->query->get('qte');
+                $this->addFlash('success', 'Quantité modifié avec succès !');
             }
         } else {
-            if ($request->query->get('qte') != null) {
+            if ($request->query->get('qte') != null)
                 $panier[$id] = $request->query->get('qte');
-            }else{
+            else
                 $panier[$id] = 1;
+             
             $this->addFlash('success', 'Article ajouté avec succès !');
-            }
+            
         }
         $session->set('panier', $panier);
         return $this->redirect($this->generateUrl('panier'));
@@ -139,4 +141,5 @@ class PanierController extends AbstractController {
     {  
         return $this->render('panier/delivery.html.twig');
     }
+
 }

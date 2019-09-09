@@ -27,6 +27,7 @@ class SecurityController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
         return $this->render('security/login.html.twig', [
+            'current_menu' => 'login',
             'last_username' => $lastUsername,
             'error' => $error
         ]);
@@ -50,6 +51,7 @@ class SecurityController extends AbstractController
             return $this->redirect($this->generateUrl('login'));
         }
         return $this->render('security/registration.html.twig', [
+            'current_menu' => 'registration',
             'form' => $form->createView()
         ]);
     }

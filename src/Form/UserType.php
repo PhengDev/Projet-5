@@ -15,23 +15,22 @@ class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-
-            ->add('username')
-            ->add('email', EmailType::class)
-            ->add('password', PasswordType::class);
         if (in_array('registration', $options['validation_groups'])) {
             $builder
                 ->add('username')
+                ->add('email', EmailType::class)
+                ->add('password', PasswordType::class)
                 ->add('confirm_password', PasswordType::class);
-        } else {
+        }
+        if (in_array('profil', $options['validation_groups'])){
             $builder
                 ->add('username')
-                ->add('email', EmailType::class, ['required' => false])
-                ->add('password', PasswordType::class, ['required' => false])
-                ->add('confirm_password', PasswordType::class)
-               
-                ;
+                ->add('email', EmailType::class);
+        }
+        if (in_array('password', $options['validation_groups'])){
+            $builder
+            ->add('password', PasswordType::class)
+            ->add('confirm_password', PasswordType::class);
         }
     }
 

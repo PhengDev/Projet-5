@@ -1,0 +1,20 @@
+{% extends ('base.html.twig') %}
+
+{% block body %}
+<div class="text-center page">
+    <h1 class="text-center">Editer son profil</h1>
+    {{ form_start(form) }}
+    <div class="d-flex flex-column">
+        <div class="col mb-2">{{ form_label(form.username, 'Nom d\'utilisateur : ') }}</div>
+     <div class="col mb-2">{{ form_widget(form.username) }} </div>
+      <div class="col mb-2">{{ form_label(form.email, 'Adresse email : ') }}</div>
+     <div class="col mb-2">{{ form_widget(form.email) }} </div>
+</div>
+<div class="mt-5">
+<a class="btn btn-primary" href="{{ path('profil') }}">Retour</a>
+ <button class="btn btn-primary">{{ button|default('Valider') }}</button>
+ </div>
+{{ form_end(form) }}
+
+    </div>
+{% endblock %}

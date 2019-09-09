@@ -10,7 +10,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity("email", message="Cette adresse email est déjà utilisé")
+ * @UniqueEntity("username", message="Ce nom a déjà été utilisé")
+ * @UniqueEntity("email", message="Cette adresse email a déjà été utilisé")
  */
 class User implements UserInterface, \Serializable
 {
@@ -183,7 +184,7 @@ class User implements UserInterface, \Serializable
             $this->password,
             $this->email,
             $this->isActive
-        ) = unserialize($serialized, ['allowed_classes' => false]);
+        ) = unserialize($serialized);
     }
 
     public function getSlug(): string
@@ -220,4 +221,5 @@ class User implements UserInterface, \Serializable
         $this->isActive = $isActive;
         return $this;
     }
+
 }

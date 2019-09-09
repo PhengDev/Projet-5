@@ -40,7 +40,7 @@ class Property
     const COLOR = [
         0=> 'Rouge',
         1=> 'Vert',
-        2=> 'Blue',
+        2=> 'Bleu',
         3=> 'Jaune',
         4=> 'Noir',
         5=> 'Bleu / Jaune',

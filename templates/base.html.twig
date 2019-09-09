@@ -50,19 +50,21 @@
                 <div class="dropdown dropbottom">
                     <a aria-expanded="false" aria-haspopup="true" class="btn dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenuLink" role="button">{{ app.user.username }}</a>
                     <div aria-labelledby="dropdownMenuLink" class="dropdown-menu dropdown-menu-bottom">
-                        <a class="dropdown-item menu-hover" href="{{ path('admin.property.index') }}">Administration</a>
+                     <a class="nav-link" href="{{path('profil')}}">Espace membre</a> 
+                        <a class="nav-link" href="{{ path('admin.property.index') }}">Administration</a>
                         <a class="dropdown-item menu-hover" href="{{ path('logout') }}">Se déconnecter</a>
                     </div>
                 </div>
+                {{ render(controller('App\\Controller\\PanierController::nbArticle')) }}
             {% else %}
                 <ul class="navbar-nav nav">
                     <li class="nav-item">
-                        <a class="nav-link text-dark mr-4" href="{{ path('login') }}">
+                        <a class="nav-link black-color mr-4 {% if current_menu is defined and current_menu == 'login' %}active btn btn-primary text-white{% endif %}" href="{{ path('login') }}">
                             <i class="fas fa-sign-in-alt mr-2"></i>Se connecter</a>
                       
                     </li>
                     <li class="nav-item">
-                      <a href="{{ path('registration') }}" class="nav-link text-dark"><i class="fas fa-file-signature"></i>S'inscrire</a>
+                      <a href="{{ path('registration') }}" class="nav-link black-color{% if current_menu is defined and current_menu == 'registration' %}active btn btn-primary text-white{% endif %}" ><i class="fas fa-file-signature"></i>S'inscrire</a>
                      </li>
                 </ul>
             {% endif %}
