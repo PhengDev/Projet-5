@@ -15,7 +15,9 @@
 
     <body>
         <nav class="navbar navbar-expand-lg nav-bg position-fixed" >
-            <a class="navbar-brand" href="{{ path('home') }}"><img src="/images/logo/logo.png/" class="logo"></a>
+            <a class="navbar-brand" href="{{ path('home') }}">
+            <img src="{{ '/images/logo/logo.png' }}" class="logo">
+            </a>
             <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -45,7 +47,10 @@
                         <a class="dropdown-item menu-hover" href="{{ path('logout') }}">Se déconnecter</a>
                     </div>
                 </div>
-                   {{ render(controller('App\\Controller\\PanierController::nbArticle')) }}
+                 <div>
+                 <a class="nav-link black-color" href="{{ path('panier') }}"> <i class="fas fa-shopping-cart"></i>
+    Votre Panier</a>
+                </div>
             {% elseif is_granted('ROLE_ADMIN') %}
                 <div class="dropdown dropbottom">
                     <a aria-expanded="false" aria-haspopup="true" class="btn dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenuLink" role="button">{{ app.user.username }}</a>
@@ -55,7 +60,11 @@
                         <a class="dropdown-item menu-hover" href="{{ path('logout') }}">Se déconnecter</a>
                     </div>
                 </div>
-                {{ render(controller('App\\Controller\\PanierController::nbArticle')) }}
+                <div>
+                 <a class="nav-link black-color" href="{{ path('panier') }}"> <i class="fas fa-shopping-cart"></i>
+    Votre Panier</a>
+                </div>
+                
             {% else %}
                 <ul class="navbar-nav nav">
                     <li class="nav-item">
@@ -145,7 +154,7 @@
                                         if (id != 'error') {
                                         const link = document.createElement("a");
                                         $(link).addClass("text-primary");
-                                        $(link).attr("href",'/collection/' + resutls + '-' + id + '');
+                                        $(link).attr("href",'/index.php/collection/' + resutls + '-' + id + '');
                                         $(link).html('' + resutls + ' <hr>');
                                         $(showResult).append(link);
                                         $(showResult).show();

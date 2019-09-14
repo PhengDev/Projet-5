@@ -29,6 +29,7 @@ class PropertyFixtures extends Fixture
             ->setEra($faker->numberBetween(0, 23))
             ->setSeries($faker->numberBetween(0, 15))
             ->setRarity($faker->numberBetween(0, 9))
+            ->setQuantity($faker->numberBetween(0, 10))
             ->setSold(false);
             $manager->persist($property);
         }

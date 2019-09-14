@@ -2,21 +2,25 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Annotations\AnnotationRegistry;
 use Symfony\Component\Validator\Constraints as Assert;
+
+AnnotationRegistry::registerAutoloadNamespace("Symfony\Component\Validator\Constraint", "path/to/symfony/library/validator");
 
 class Contact
 {
+    
     /**
      * @var string|null
      * @Assert\NotBlank()
-     * @Assert\Lenght(min=2, max=255)
+     * 
      */
     private $firstname;
 
      /**
      * @var string|null
      * @Assert\NotBlank()
-     * @Assert\Lenght(min=2, max=255)
+     *
      */
     private $lastname;
 
@@ -37,7 +41,7 @@ class Contact
       /**
      * @var string|null
      * @Assert\NotBlank()
-     * @Assert\Lenght(min=5)
+     *
      */
     private $message;
 

@@ -20,13 +20,14 @@ class ContactController extends AbstractController
     public function index(Request $request, ContactNotification $notification): Response
     {
         $contact = new Contact();
+       
         $form = $this->createForm(ContactType::class, $contact);
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $notification->notify($contact);
             $this->addFlash('success','Votre émail a bien été envoyer');
-            return $this-redirectToRoute("contact");
+            return $this->redirectToRoute("contact");
         }
-        $form->handleRequest($request);
         return $this->render("contact/index.html.twig",[
             'form'=> $form->createView(),
             'current_menu' => 'contact'

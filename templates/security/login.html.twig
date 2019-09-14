@@ -4,11 +4,6 @@
 {% block body %}
     <div class="page text-center bg-login">
         <h1>Connexion</h1>
-          {% for message in app.flashes('success') %}
-            <div class="alert alert-success">
-                {{ message }}
-            </div>
-        {% endfor %}
            {% if error %}
             <div class="alert alert-danger mt-4">
                 {{ error.messageKey | trans(error.messagedata, 'security') }}

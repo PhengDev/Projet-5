@@ -1,5 +1,7 @@
 <?php
 namespace App\Controller;
+
+use App\Notification\ContactNotification;
 use App\Repository\PropertyRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -98,7 +100,6 @@ class PanierController extends AbstractController {
         $session = $request->getSession();
         $session->clear();
         $session->set('panier', array());
-       
         $this->addFlash('success', 'Votre commande a bien été éffectuer, Merci pour votre achat !');
         return $this->redirect($this->generateUrl('panier'));
     }
@@ -125,9 +126,7 @@ class PanierController extends AbstractController {
                 $panier[$id] = $request->query->get('qte');
             else
                 $panier[$id] = 1;
-             
             $this->addFlash('success', 'Article ajouté avec succès !');
-            
         }
         $session->set('panier', $panier);
         return $this->redirect($this->generateUrl('panier'));
@@ -139,7 +138,24 @@ class PanierController extends AbstractController {
      */
     public function delivery(): Response
     {  
+      
+       
         return $this->render('panier/delivery.html.twig');
     }
 
+       /**
+     * @Route("/validationAct", name="panier.validationAct")
+     * @return Response
+     */
+    public function validationAction(): Response
+    {
+        if ($this->get('request')->getMethod() == 'POST')
+            $this->setLivraisonOnSession();
+        $em = $this->getDoctrine()->getManager();
+        $prepareCommande = $this->forward('App:prepareCommande');
+        $commande = $em->getRepository('App:Commandes')->find($prepareCommande->getContent());
+        return $this->render('panier/delivery.html.twig', [
+            'commande' => $commande
+            ]);
+    }
 }

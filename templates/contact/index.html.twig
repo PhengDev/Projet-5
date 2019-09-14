@@ -4,6 +4,17 @@
 {% block body %}
     <div class="jumbotron text-center page" id="contactForm">
         <h1>Contact</h1>
+          
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% if not form.vars.valid %}
+            <div class="alert alert-danger">
+                Veuillez bien remplir le formulaire
+            </div>
+        {% endif %}
         <div class="mt-4" id="contactForm">
         {{ form_start(form) }}
         <div class="d-flex flex-column">
@@ -24,16 +35,6 @@
       <button class="btn btn-primary">{{ button|default('Envoyer') }}</button>
      </div>
       
-        {{ form_end(form) }}
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success">
-                {{ message }}
-            </div>
-        {% endfor %}
-        {% if not form.vars.valid %}
-            <div class="alert alert-danger">
-                Veuillez bien remplir le formulaire
-            </div>
-        {% endif %}
+      {{ form_end(form) }}
     </div>
 {% endblock %}

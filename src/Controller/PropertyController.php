@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Comment;
 use App\Entity\Property;
 use App\Repository\PropertyRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -11,7 +10,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -65,13 +63,13 @@ class PropertyController extends AbstractController
         ]);
     }
 
-     /**
-   *
-   * @Route("/search", name="ajax_search")
-   * @Method("GET")
-   */
-  public function searchAction(Request $request)
-  {
+    /**
+     *
+     * @Route("/search", name="ajax_search")
+     * @Method("GET")
+     */
+    public function searchAction(Request $request)
+    {
    
     $requestString = $request->get('q');
     $properties =  $this->em->getRepository('App:Property')->findPropertyByString($requestString);
