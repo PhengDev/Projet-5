@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+    </head>
+</body>
+    {% set somme = 0 %}
+    
+    <h2 class="text-center">
+        Récapitulatif du commande de : {{ app.user.username }}
+    </h2>
+    <div>
+    <p> Son adresse émail : {{ app.user.email }} </p>
+    </div>
+    <br>
+    <table class="table table-striped table-hover panier-table">
+        <thead>
+            <tr>
+                <th>Séries</th>
+                <th>Nom</th>
+                <th>Quantité</th>
+                <th>PrixUT</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for property in properties  %}
+                <tr>
+                    <td>{{ property.seriesType }}</td>
+                    <td>{{ property.title }}</td>
+                    <td>{{ panier[property.id] }}</td>
+                    <td>{{ property.price }}€</td>
+                    <td>{{ (property.price * panier[property.id])|number_format(0, '', '.') }}€</td>
+                </tr>
+                {% set somme = somme + property.price * panier[property.id] %}
+            {% endfor %}
+        </tbody>
+    </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="5" class="text-right">Total Commande: {{ somme|number_format(0, '', '.') }}€</th>
+        </tr>
+        <th colspan="2">Mode paiement: 
+            <br>
+            Sur place
+            <br>
+            Accepte toute méthode de paiement
+        </th>
+        <tr>
+            <th colspan="2">Mode livraison:
+            <br>
+            Point de relais
+            <br>
+            8 Place du Château, 30000 Nîmes</th>
+        </tr>
+    </tfoot>
+</table>
+   <script crossorigin="anonymous" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </body>
+</html>

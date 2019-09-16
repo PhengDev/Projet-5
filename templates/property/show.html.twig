@@ -5,9 +5,7 @@
     <div class="flex container text-center page mb-2">
         <a class="bg-primary text-white backup rounded p-1 mb-2" href="{{ path('property.collection') }}">Retour aux cartes</a>
         <h1>{{ property.title }}</h1>
-
         <br>
-
         <div class="d-flex align-items-center text-center">
             {% if property.filename %}
                 <img src="{{ vich_uploader_asset(property, 'imageFile') | imagine_filter('large') }}" alt="card-img-top" class="ml-2 mr-2">

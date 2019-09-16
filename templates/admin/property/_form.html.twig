@@ -1,36 +1,84 @@
 {{ form_start(form) }}
-<div class="d-flex flex-column text-center bg-secondary p-2">
-    <div class="row">
-        <div class="col-md-4">{{ form_row(form.title, {'label': 'Titre'}) }}</div>
-        <div class="col-md-4">{{ form_row(form.type) }}</div>
-        <div class="col">{{ form_row(form.series) }}</div>
+<div class="d-flex flex-wrap text-center bg-info p-2 formProperty">
+    <div class='col-md-3'>
+        <div >{{ form_label(form.title,'Titre') }}</div>
+        <div >{{ form_widget(form.title) }} </div>
     </div>
-    <div class="row">
-        <div class="col-md-4">{{ form_row(form.color, {'label': 'Couleur'}) }}</div>
-        <div class="col-md-4">{{ form_row(form.origin, {'label': 'Origine'}) }}</div>
-        <div class="col">{{ form_row(form.era, {'label': 'Ere'}) }}</div>
+     <div class='col-md-3'>
+        <div >{{ form_label(form.type) }}</div>
+        <div>{{ form_widget(form.type) }} </div>
     </div>
-    <div class="row">
-        <div class="col-md-4">{{ form_row(form.personage, {'label': 'Personnage'}) }}</div>
-        <div class="col-md-4">{{ form_row(form.description) }}</div>
-        <div class="col-md-4">{{ form_row(form.rarity, {'label': 'Rarité'}) }}</div>
-        </div>
-        <div class="row">
-        <div class="col-md-4">{{ form_row(form.power, {'label': 'Puissance'}) }}</div>
-        <div class="col-md-4">{{ form_row(form.costEnergy, {'label': 'Coût énergie'}) }}</div>
-        <div class="col">{{ form_row(form.costCombo, {'label': 'Coût Combo'}) }}</div>
-         </div>
-         <div class="row">
-        <div class="col-md-4">{{ form_row(form.powerCombo, {'label': 'Puissance de Combo'}) }}</div>
-   <div class="col-md-4">{{ form_row(form.quantity, {'label': 'Quantity'}) }}</div>
-    <div class="col">{{ form_row(form.price, {'label': 'Prix'}) }}</div>
-     </div>
-      <div class="row">
-      
-        <div class="col-md-4">{{ form_row(form.imageFile, {'label': 'Upload l\'image'}) }}</div>
-    <div class="col-md-4">{{ form_row(form.sold, {'label': 'Rupture de stock'}) }}</div>
-     </div>
-    <button class="btn btn-primary">{{ button|default('Enregistrer') }}</button>
+     <div class='col-md-3'>
+       <div>{{ form_label(form.series) }}</div>
+        <div>{{ form_widget(form.series) }} </div>
+    </div>
+        
+     <div class='col-md-3 ml-2'>
+        <div >{{ form_label(form.color,'Couleur') }}</div>
+        <div >{{ form_widget(form.color) }} </div>
+    </div>
+     <div class='col-md-3'>
+        <div >{{ form_label(form.origin,'Origine') }}</div>
+        <div>{{ form_widget(form.origin) }} </div>
+    </div>
+     <div class='col-md-3'>
+       <div>{{ form_label(form.era,'Ere') }}</div>
+        <div>{{ form_widget(form.era) }} </div>
+    </div>
+    
+     <div class='col-md-3'>
+        <div >{{ form_label(form.personage,'Personnage') }}</div>
+        <div >{{ form_widget(form.personage) }} </div>
+    </div>
+     <div class='col-md-3'>
+        <div >{{ form_label(form.description,'Description') }}</div>
+        <div>{{ form_widget(form.description) }} </div>
+    </div>
+     <div class='col-md-3'>
+       <div>{{ form_label(form.rarity,'Rarité') }}</div>
+        <div>{{ form_widget(form.rarity) }} </div>
+    </div>
+
+     <div class='col-md-3'>
+        <div >{{ form_label(form.power,'Puissance') }}</div>
+        <div >{{ form_widget(form.power) }} </div>
+    </div>
+     <div class='col-md-3'>
+        <div >{{ form_label(form.costEnergy,'Coût énergie') }}</div>
+        <div>{{ form_widget(form.costEnergy) }} </div>
+    </div>
+     <div class='col-md-3'>
+       <div>{{ form_label(form.costCombo,'Coût Combo') }}</div>
+        <div>{{ form_widget(form.costCombo) }} </div>
+    </div>
+    
+     <div class='col-md-3'>
+        <div >{{ form_label(form.powerCombo,'Puissance de combo') }}</div>
+        <div >{{ form_widget(form.powerCombo) }} </div>
+    </div>
+     <div class='col-md-3'>
+        <div >{{ form_label(form.quantity,'Quantity') }}</div>
+        <div>{{ form_widget(form.quantity) }} </div>
+    </div>
+     <div class='col-md-3'>
+       <div>{{ form_label(form.price,'Prix') }}</div>
+        <div>{{ form_widget(form.price) }} </div>
+    </div>
+
+    <div class='col-md-3'>
+        <div >{{ form_label(form.imageFile,'Upload une image') }}</div>
+        <div >{{ form_widget(form.imageFile) }} </div>
+    </div>
+     <div class='col-md-3'>
+        <div >{{ form_label(form.sold,'Rupture de stock') }}</div>
+        <div>{{ form_widget(form.sold) }} </div>
+    </div>
+     <div class='col-md-3'>
+       <div>{{ form_label(form.price,'Prix') }}</div>
+        <div>{{ form_widget(form.price) }} </div>
+    </div>
+
+    <button class="btn btn-primary mt-4">{{ button|default('Enregistrer') }}</button>
     {{ form_widget(form) }}
 </div>
 {{ form_end(form) }}

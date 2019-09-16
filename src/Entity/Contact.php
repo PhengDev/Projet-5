@@ -46,11 +46,6 @@ class Contact
     private $message;
 
     /**
-     * @var Property|null
-     */
-    private $property;
-
-    /**
      * Get the value of message
      *
      * @return  string|null

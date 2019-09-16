@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -12,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity("username", message="Ce nom a déjà été utilisé")
+ * @UniqueEntity("username", message="Ce pseudo a déjà été utilisé")
  * @UniqueEntity("email", message="Cette adresse email a déjà été utilisé")
  */
 class User implements UserInterface, \Serializable

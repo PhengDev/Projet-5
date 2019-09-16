@@ -3,8 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\User;
-use Doctrine\ORM\Query;
-use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

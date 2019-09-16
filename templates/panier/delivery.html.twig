@@ -1,20 +1,70 @@
 {% extends 'base.html.twig' %}
 {% block title 'Validation du commande' %}
-
 {% block body %}
     <div class="container text-center page">
-        <h1>Mode de livraison</h1>
-        <br>
-        <form action="{{ path('panier.validation') }}" method="post">
-            <h4>
-                Point de relais</h4>
-            <p>Veuillez selectionner votre point pour récupérer votre commande</p>
-            <input id="test" type="radio" name="point-relais" value="8 Place du Château, 30000 Nîmes" required><label for="8 Place du Château, 30000 Nîmes">8 Place du Château, 30000 Nîmes</label><br>
-            <input type="radio" name="point-relais" value="10 Rue Emile Jamais, 30000 Nîmes"><label for="10 Rue Emile Jamais, 30000 Nîmes">10 Rue Emile Jamais, 30000 Nîmes</label><br>
-            <div>
-                <a class="btn btn-primary" href="{{ path('panier') }}">Retour</a>
-                <button type="subtmit" class="btn btn-success" role="button">Valider la commande</button>
-            </div>
-        </form>
+        <h2>Récapitulatif du commande</h2>
+        <div class="col-md-10">
+            <table class="table table-striped table-hover panier-table">
+                <thead>
+                    <tr>
+                        <th>Séries</th>
+                        <th></th>
+                        <th>Nom</th>
+                        <th>Quantité</th>
+                        <th>PrixUT</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set somme = 0 %}
+                    {% for property in properties  %}
+                        <tr>
+                            <td>{{ property.seriesType }}</td>
+                            <td>
+                                {% if property.filename %}
+                                    <img class="image-style-thumb" src="{{ vich_uploader_asset(property, 'imageFile') | imagine_filter('thumb') }}" height="40" alt="{{ property.title }}"/>
+                                {% else %}
+                                    <img src="{{ '/images/properties/empty.jpg' | imagine_filter('thumb') }}" height="40" alt="card-img-top">
+                                {% endif %}
+                            </td>
+                            <td>{{ property.title }}</td>
+                            <td>
+                                {{ panier[property.id] }}
+                            </td>
+                            <td>{{ property.price }}
+                                €</td>
+                            <td>{{ (property.price * panier[property.id])|number_format(0, '', '.') }}
+                                €</td>
+                        </tr>
+                        {% set somme = somme + property.price * panier[property.id] %}
+                    {% endfor %}
+                </tbody>
+                <tfoot class="mb-4">
+                    <tr>
+                        <th colspan="5" class="text-right">Total Commande:</th>
+                        <th>
+                            {{ somme|number_format(0, '', '.') }}€</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2">Mode paiement:
+                            <br>
+                            Sur place
+                            <br>
+                            Accepte toute méthode de paiement
+                        </th>
+                        <th colspan="2">Mode livraison:
+                            <br>
+                            Point de relais
+                            <br>
+                            8 Place du Château, 30000 Nîmes
+                        </th>
+                        <th colspan="2" class="card-text text-center">
+                            <a href="{{ path('panier') }}" class="btn btn-primary">Retour</a>
+                            <a class="btn btn-success" role="button" href="{{ path('panier.validation') }}">Confirmer la commande</a>
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
     </div>
 {% endblock %}

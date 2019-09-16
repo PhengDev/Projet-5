@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\User;
 
 use App\Entity\User;
 use App\Form\UserType;
@@ -8,13 +8,10 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class UserController extends AbstractController
 {
@@ -26,7 +23,7 @@ class UserController extends AbstractController
         $this->em = $em;
     }
 
-      /**
+    /**
      * @Route("/profil", name="profil")
      * @return Response
      */
@@ -51,7 +48,9 @@ class UserController extends AbstractController
             $this->em->flush();
             $request->getSession()->getFlashBag()->add('success', 'Votre profil bien a été modifié');
             return $this->redirectToRoute('profil');
-        } 
+        } else {
+            $form->addError(new FormError('Ancien mot de passe incorrect'));
+        }
         return $this->render('profil/editProfil.html.twig', [
             'form' => $form->createView()
         ]);
@@ -66,7 +65,7 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
     	$form = $this->createForm(UserType::class, $user, [
-            'validation_groups' => array('password'),
+            'validation_groups' => array('User','password'),
         ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -75,9 +74,10 @@ class UserController extends AbstractController
             $this->em->persist($user);
             $this->em->flush();
             $request->getSession()->getFlashBag()->add('success', 'Votre mot de passe a été modifié');
-            return $this->redirect('profil');
+            return $this->redirectToRoute('profil');
+        }else {
+            $form->addError(new FormError('Ancien mot de passe incorrect'));
         }
-    	
     	return $this->render('profil/editPassword.html.twig', array(
     		'form' => $form->createView(),
     	));

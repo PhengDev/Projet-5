@@ -1,15 +1,18 @@
 <?php
 namespace App\Controller;
 
-use App\Notification\ContactNotification;
+use App\Entity\User;
 use App\Repository\PropertyRepository;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use App\Notification\ContactNotification;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 class PanierController extends AbstractController { 
+
     /**
      * @var PropertyRepository
      */
@@ -35,7 +38,7 @@ class PanierController extends AbstractController {
         $session = $request->getSession();
         if (!$session->has('panier')) $session->set('panier', array());
         $properties = $this->repository->findArray(array_keys($session->get('panier')));
-        return $this->render('panier/panier.html.twig',[
+        return $this->render('panier/index.html.twig',[
             "properties" => $properties,
             "panier" => $session->get('panier')
         ]);
@@ -93,11 +96,16 @@ class PanierController extends AbstractController {
     /**
      * @Route("/validation", name="panier.validation",  methods="GET|POST")
      * @param Request $request
+     * @param User $user
+     * @param Session $session
      * @return Response
      */
-    public function validation(Request $request): Response
+    public function validation(Request $request, ContactNotification $notification): Response
     {
         $session = $request->getSession();
+        $properties = $this->repository->findArray(array_keys($session->get('panier')));
+        $user = $this->getUser();
+        $notification->validCommand($properties,$user,$session);
         $session->clear();
         $session->set('panier', array());
         $this->addFlash('success', 'Votre commande a bien été éffectuer, Merci pour votre achat !');
@@ -132,30 +140,23 @@ class PanierController extends AbstractController {
         return $this->redirect($this->generateUrl('panier'));
     }
 
-    /**
-     * @Route("/livraison", name="panier.livraison")
-     * @return Response
-     */
+    
     public function delivery(): Response
-    {  
-      
-       
+    {    
         return $this->render('panier/delivery.html.twig');
     }
 
-       /**
-     * @Route("/validationAct", name="panier.validationAct")
+    /**
+     * @Route("/livraison", name="panier.livraison", methods="GET|POST")
      * @return Response
      */
-    public function validationAction(): Response
+    public function livraisonAction(Request $request)
     {
-        if ($this->get('request')->getMethod() == 'POST')
-            $this->setLivraisonOnSession();
-        $em = $this->getDoctrine()->getManager();
-        $prepareCommande = $this->forward('App:prepareCommande');
-        $commande = $em->getRepository('App:Commandes')->find($prepareCommande->getContent());
+        $session = $request->getSession();
+        $properties = $this->repository->findArray(array_keys($session->get('panier')));
         return $this->render('panier/delivery.html.twig', [
-            'commande' => $commande
+            "properties" => $properties,
+            "panier" => $session->get('panier')
             ]);
     }
 }

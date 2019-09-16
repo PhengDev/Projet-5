@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html>
-
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="DrakeBallShop">
+        <meta name="author" content="Ly Pheng">
         <title>
-            {% block title %}Welcome!
+            {% block title %}
             {% endblock %}
         </title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css" integrity="sha256-piqEf7Ap7CMps8krDQsSOTZgF+MU/0MPyPW2enj5I40=" crossorigin="anonymous" />
-      
+        <link rel="icon" type="img/png" href="{{ '/images/logo/logo.png' }}" sizes="30x30">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css" integrity="sha256-piqEf7Ap7CMps8krDQsSOTZgF+MU/0MPyPW2enj5I40=" crossorigin="anonymous" />
         <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet"> {% block stylesheets %}{% endblock %}
         <link href="{{ asset('build/style.css')}}" rel="stylesheet">
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-lg nav-bg position-fixed" >
+        <nav class="navbar navbar-expand-lg nav-bg position-fixed navbar-white bg-white" >
             <a class="navbar-brand" href="{{ path('home') }}">
             <img src="{{ '/images/logo/logo.png' }}" class="logo">
             </a>
-            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+            <button class="navbar-toggler black-color" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -33,7 +35,7 @@
                     </li>
                 </ul>
                 <div class="form-inline active-cyan-4 mr-4">
-                    <input aria-label="Recherche" class="form-control form-control-sm mr-3 w-75" id="search" placeholder="Search" type="text">
+                    <input aria-label="Recherche" class="form-control form-control-sm mr-3 w-75" id="search" placeholder="Recherche" type="text">
                
                     <i aria-hidden="true" class="fas fa-search"></i>
                      <div class="position-absolute bg-white" id="entitiesNav"></div>
@@ -48,29 +50,24 @@
                     </div>
                 </div>
                  <div>
-                 <a class="nav-link black-color" href="{{ path('panier') }}"> <i class="fas fa-shopping-cart"></i>
-    Votre Panier</a>
+                {{ render(controller('App\\Controller\\PanierController::nbArticle')) }}
                 </div>
             {% elseif is_granted('ROLE_ADMIN') %}
                 <div class="dropdown dropbottom">
                     <a aria-expanded="false" aria-haspopup="true" class="btn dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenuLink" role="button">{{ app.user.username }}</a>
                     <div aria-labelledby="dropdownMenuLink" class="dropdown-menu dropdown-menu-bottom">
-                     <a class="nav-link" href="{{path('profil')}}">Espace membre</a> 
                         <a class="nav-link" href="{{ path('admin.property.index') }}">Administration</a>
                         <a class="dropdown-item menu-hover" href="{{ path('logout') }}">Se déconnecter</a>
                     </div>
                 </div>
                 <div>
-                 <a class="nav-link black-color" href="{{ path('panier') }}"> <i class="fas fa-shopping-cart"></i>
-    Votre Panier</a>
+                  {{ render(controller('App\\Controller\\PanierController::nbArticle')) }}
                 </div>
-                
             {% else %}
                 <ul class="navbar-nav nav">
                     <li class="nav-item">
                         <a class="nav-link black-color mr-4 {% if current_menu is defined and current_menu == 'login' %}active btn btn-primary text-white{% endif %}" href="{{ path('login') }}">
                             <i class="fas fa-sign-in-alt mr-2"></i>Se connecter</a>
-                      
                     </li>
                     <li class="nav-item">
                       <a href="{{ path('registration') }}" class="nav-link black-color{% if current_menu is defined and current_menu == 'registration' %}active btn btn-primary text-white{% endif %}" ><i class="fas fa-file-signature"></i>S'inscrire</a>
@@ -116,14 +113,13 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript"></script>
    <script crossorigin="anonymous" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
    <script crossorigin="anonymous" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-     <script src="{{ asset('build/script.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('build/script.js')}}" type="text/javascript"></script>
     <script type="text/javascript">
 
     class SearchBar {
     constructor({target, showResult}) {
         this.target = target;
         this.showResult = showResult;
-        this.timeOut = null;
         this.init();
     }
 
@@ -154,7 +150,7 @@
                                         if (id != 'error') {
                                         const link = document.createElement("a");
                                         $(link).addClass("text-primary");
-                                        $(link).attr("href",'/index.php/collection/' + resutls + '-' + id + '');
+                                        $(link).attr("href",'/collection/' + resutls + '-' + id + '');
                                         $(link).html('' + resutls + ' <hr>');
                                         $(showResult).append(link);
                                         $(showResult).show();
@@ -184,18 +180,11 @@ function initSearch() {
         });
 }
 
-if ($('.page').height() < 450) {
-    $('.page').css("height","38em");
-} else {
-    $('.page').css("height","auto");
-}
-
 if (window) {
     window.addEventListener("load", () => {
         initSearch();
     })
 }
 </script>
-   
 </body>
 </html>

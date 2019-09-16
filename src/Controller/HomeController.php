@@ -21,9 +21,10 @@ class HomeController extends AbstractController
     {
         
         $properties = $repository->findLatest();
-        
-        return $this->render("pages/home.html.twig",[
-            'properties'=>$properties
+        $slideProperties = $repository->findSlider();
+        return $this->render("home/index.html.twig",[
+            'properties'=>$properties,
+            'slideProperties'=>$slideProperties
         ]);
     }
 

@@ -15,30 +15,30 @@
         <p class="card-text">
             {{property.seriestype}}
         </p>
-        <div class='text-primary'>{{property.price}}
+        <div class='text-primary price'>{{property.price}}
             €
         </div>
         <form action="{{ path('panier.ajout', {'id': property.id}) }}" method="get">
-           
-                <label for="exampleFormControlSelect1">Quantité</label>
-                
-                <select class="form-control" id="exampleFormControlSelect1" name="qte">
-                 {% if property.quantity == 0 %}
-                 <option value="0">0</option>
-                  {% else %}
+            <label for="exampleFormControlSelect1">Quantité</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="qte">
+                {% if property.quantity == 0 %}
+                    <option value="0">0</option>
+                {% else %}
                     {% for i in 1..property.quantity %}
                         <option value="{{ i }}">{{ i }}</option>
                     {% endfor %}
-                     {% endif %}
-                </select>
-           
+                {% endif %}
+            </select>
         </p>
         <p class="card-text">
             {% if property.quantity == 0 %}
                 <span class="btn btn-danger btn-lg">Rupture de stock</span>
             {% else %}
-                <button class="btn btn-success btn-lg">Mettre au panier</button>
+                <button class="btn btn-success btn-lg">Mettre au panier
+                    <i class="fas fa-shopping-cart"></i>
+                </button>
             {% endif %}
         </p>
-    </form>
-</div></div>
+        </form>
+    </div>
+</div>

@@ -2,13 +2,11 @@
 
 namespace App\Repository;
 
-
 use App\Entity\Property;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-
 /**
  * @method Property|null find($id, $lockMode = null, $lockVersion = null)
  * @method Property|null findOneBy(array $criteria, array $orderBy = null)
@@ -38,6 +36,16 @@ class PropertyRepository extends ServiceEntityRepository
     {
         return $this->findVisibleQuery()
         ->setMaxResults(4)
+        ->orderBy('p.id', 'DESC')
+        ->getQuery()
+        ->getResult()
+    ;
+    }
+
+    public function findSlider(): array
+    {
+        return $this->findVisibleQuery()
+        ->setMaxResults(10)
         ->orderBy('p.id', 'DESC')
         ->getQuery()
         ->getResult()

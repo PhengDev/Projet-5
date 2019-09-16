@@ -20,11 +20,10 @@ class ContactController extends AbstractController
     public function index(Request $request, ContactNotification $notification): Response
     {
         $contact = new Contact();
-       
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $notification->notify($contact);
+            $notification->notifyContact($contact);
             $this->addFlash('success','Votre émail a bien été envoyer');
             return $this->redirectToRoute("contact");
         }
