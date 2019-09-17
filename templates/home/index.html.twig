@@ -2,49 +2,16 @@
 {% block title 'Drake Ball Shop' %}
 
 {% block body %}
-    <div class="text-center page banniere">
-        <h1>Drake Ball Shop</h1>
-        <img src="{{ '/images/background/boules_de_cristal.jpg'}}" alt="card-img-top" class="boules-cristal">
-        
-   <div class="container my-4">
-   
-    <div id="slider" class="carousel slide z-depth-1-half mb-4 border border-secondary" data-ride="carousel">
-      <div class="carousel-inner">
-      <div class="carousel-item active p-4">
-          <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(46).jpg" alt="Second slide">
-        </div>
-      {% for slideProperty in slideProperties %}
-        <div class="carousel-item p-4">
-            {% if slideProperty.filename %}
-        <a href="{{ path('property.show', {id: slideProperty.id, slug: slideProperty.slug}) }}">
-            <img src="{{ vich_uploader_asset(slideProperty, 'imageFile') | imagine_filter('medium') }}" alt="card-img-top">
-        </a>
-    {% else %}
-        <a href="{{ path('property.show', {id: slideProperty.id, slug: slideProperty.slug}) }}">
-            <img src="{{ '/images/properties/empty.jpg' | imagine_filter('medium') }}" alt="card-img-top">
-        </a>
-    {% endif %}
-     <div class='text-danger'>{{slideProperty.price}}
-            €
-        </div>
-        </div>
-           {% endfor %}
-      </div>
-      <a class="carousel-control-prev bg-secondary" href="#slider" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only ">Previous</span>
-      </a>
-      <a class="carousel-control-next bg-secondary" href="#slider" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
-    </div>
-<p>Et quoniam apud eos ut in capite mundi morborum acerbitates celsius dominantur, ad quos vel sedandos omnis professio medendi torpescit, excogitatum est adminiculum sospitale nequi amicum perferentem similia videat, additumque est cautionibus paucis remedium aliud satis validum, ut famulos percontatum missos quem ad modum valeant noti hac aegritudine colligati, non ante recipiant domum quam lavacro purgaverint corpus. ita etiam alienis oculis visa metuitur labes.</p>
+    <div class="text-center page text-home">
+    <h1>Drake Ball Shop</h1>
+    <img src="{{ '/images/background/boules_de_cristal.jpg'}}" alt="card-img-top" class="boules-cristal">
+    <p>Bienvenue sur le site de vente de carte, nous sommes actuellement en cours de développement, d'ici quelque semaines, il aura plus de contenu et d'amélioration de notre site</p>
+    <br>
+    
     <div class='container bg-home rounded text-center p-3 mb-5'>
-        <h2 class="text-white">Les derniers cartes sorties</h2>
-        <div class='row flex'>
+        <h2 class="text-warning">Les derniers cartes sorties</h2>
+        <div class='d-flex'>
             {% for property in properties %}
-         
                 <div class='col-3'>
                     <div class='card'>
                         <div class='card-body card-home text-white
@@ -67,7 +34,7 @@
                             </h5>
                             <div>{{property.seriestype}}</div>
                         </div>
-                        <a class="btn btn-primary" href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">Plus info</a>
+                        <a class="btn btn-primary btn-info" href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">Plus info</a>
                     </div>
                 </div>
             {% endfor %}

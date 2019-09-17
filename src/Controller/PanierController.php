@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Property;
 use App\Repository\PropertyRepository;
 use App\Notification\ContactNotification;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,7 +49,7 @@ class PanierController extends AbstractController {
      * @param Request $request
      * @return Response
      */
-    public  function nbArticle(Request $request)
+    public function nbArticle(Request $request)
     {
         $session = $request->getSession();
         if (!$session->has('panier')) 
@@ -94,17 +95,23 @@ class PanierController extends AbstractController {
     }
 
     /**
-     * @Route("/validation", name="panier.validation",  methods="GET|POST")
+     * @Route("/validation/{id}", name="panier.validation",  methods="GET|POST")
      * @param Request $request
      * @param User $user
      * @param Session $session
+     * @param $id
      * @return Response
      */
-    public function validation(Request $request, ContactNotification $notification): Response
+    public function validation(Request $request, ContactNotification $notification, $id): Response
     {
         $session = $request->getSession();
-        $properties = $this->repository->findArray(array_keys($session->get('panier')));
         $user = $this->getUser();
+        $panier = $session->get('panier');
+        $properties = $this->repository->findArray(array_keys($session->get('panier')));
+        foreach ($properties as $property){
+            $property->setQuantity($property->getQuantity() - $panier[$id]);
+        }
+        $this->em->flush();
         $notification->validCommand($properties,$user,$session);
         $session->clear();
         $session->set('panier', array());
@@ -138,12 +145,6 @@ class PanierController extends AbstractController {
         }
         $session->set('panier', $panier);
         return $this->redirect($this->generateUrl('panier'));
-    }
-
-    
-    public function delivery(): Response
-    {    
-        return $this->render('panier/delivery.html.twig');
     }
 
     /**

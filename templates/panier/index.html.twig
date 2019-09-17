@@ -58,9 +58,9 @@
                                             {% endfor %}
                                         </select>
                                     </td>
-                                    <td>{{ property.price }}
+                                    <td>{{ property.formatedPrice }}
                                         €</td>
-                                    <td>{{ (property.price * panier[property.id])|number_format(0, '', '.') }}
+                                    <td>{{ (property.formatedPrice * panier[property.id])|number_format(2, '.', ' ') }}
                                         €</td>
                                     <td>
                                         <a href="{{ path('panier.suppArticle',{"id": property.id}) }}">
@@ -68,7 +68,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                                {% set somme = somme + property.price * panier[property.id] %}
+                                {% set somme = somme + property.formatedPrice * panier[property.id] %}
                             </form>
 
                             <!-- Modal -->
@@ -99,7 +99,7 @@
                     <tr>
                         <th colspan="5" class="text-right">Total Commande:</th>
                         <th>
-                            {{ somme|number_format(0, '', '.') }}€</th>
+                            {{ somme|number_format(2, '.', ' ') }}€</th>
                     </tr>
                 </tfoot>
             </table>

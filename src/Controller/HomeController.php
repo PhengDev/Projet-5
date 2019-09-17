@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
-use App\Repository\UserRepository;
 use App\Repository\PropertyRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,12 +17,9 @@ class HomeController extends AbstractController
      */
     public function index(PropertyRepository $repository): Response
     {
-        
         $properties = $repository->findLatest();
-        $slideProperties = $repository->findSlider();
         return $this->render("home/index.html.twig",[
-            'properties'=>$properties,
-            'slideProperties'=>$slideProperties
+            'properties'=>$properties
         ]);
     }
 

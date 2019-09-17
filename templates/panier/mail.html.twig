@@ -26,16 +26,16 @@
                     <td>{{ property.seriesType }}</td>
                     <td>{{ property.title }}</td>
                     <td>{{ panier[property.id] }}</td>
-                    <td>{{ property.price }}€</td>
-                    <td>{{ (property.price * panier[property.id])|number_format(0, '', '.') }}€</td>
+                    <td>{{ property.formatedPrice }}€</td>
+                    <td>{{ (property.formatedPrice * panier[property.id])|number_format(2, '.', ' ') }}€</td>
                 </tr>
-                {% set somme = somme + property.price * panier[property.id] %}
+                {% set somme = somme + property.formatedPrice * panier[property.id] %}
             {% endfor %}
         </tbody>
     </tbody>
     <tfoot>
          <tr>
-            <th colspan="5" class="text-right">Total Commande: {{ somme|number_format(0, '', '.') }}€</th>
+            <th colspan="5" class="text-right">Total Commande: {{ somme|number_format(2, '.', ' ') }}€</th>
         </tr>
         <th colspan="2">Mode paiement: 
             <br>

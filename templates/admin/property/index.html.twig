@@ -2,49 +2,47 @@
 {% block title 'Administration' %}
 
 {% block body %}
-    <div class="jumbotron text-center page">
+    <div class="jumbotron text-center page mb-0">
         <h1>Administration</h1>
-   
-    
- <div class="container text-center">
-            <a href="{{ path('admin.property.new') }}" class="btn btn-primary">Ajouter une nouvelle carte</a>
-             {% for message in app.flashes('success') %}
-            <div class="alert alert-success">
-                {{ message }}
-            </div>
-        {% endfor %}
+        <div class="container text-center">
+            <a href="{{ path('admin.property.new') }}" class="btn btn-primary">Ajouter une nouvelle article</a>
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
         </div>
-    <div class='container text-center'>
-        <h2>Edition</h2>
-       
-        <table class="table table-striped">
-            <thread>
-                <tr>
-                    <th>Titre</th>
-                    <th>Option</th>
-                </tr>
-            </thread>
-            <tbody>
-                {% for property in properties %}
+        <div class='container text-center'>
+            <h2>Edition</h2>
+
+            <table class="table table-striped">
+                <thread>
                     <tr>
-                        <td>
-                            {{property.title}}
-                        </td>
-                        <td>
-                            <a href="{{ path('admin.property.edit', {id: property.id}) }}" class="btn btn-secondary">Editer</a>
-                            <form method="post" action="{{ path('admin.property.delete', {id: property.id}) }}" style="display: inline-block" onsubmit="return confirm('Voulez vous vraiment le supprimer ?')">
-                                <input name="_method" type="hidden" value="DELETE">
-                                <input type="hidden" name="token" value="{{ csrf_token('delete' ~ property.id) }}">
-                                <button class="btn btn-danger">Supprimer</button>
-                            </form>
-                        </td>
-                    {% endfor %}
+                        <th>Titre</th>
+                        <th>Option</th>
+                    </tr>
+                </thread>
+                <tbody>
+                    {% for property in properties %}
+                        <tr>
+                            <td>
+                                {{property.title}}
+                            </td>
+                            <td>
+                                <a href="{{ path('admin.property.edit', {id: property.id}) }}" class="btn btn-secondary">Editer</a>
+                                <form method="post" action="{{ path('admin.property.delete', {id: property.id}) }}" style="display: inline-block" onsubmit="return confirm('Voulez vous vraiment le supprimer ?')">
+                                    <input name="_method" type="hidden" value="DELETE">
+                                    <input type="hidden" name="token" value="{{ csrf_token('delete' ~ property.id) }}">
+                                    <button class="btn btn-danger">Supprimer</button>
+                                </form>
+                            </td>
+                        {% endfor %}
+                    </tbody>
                 </tbody>
-            </tbody>
-        </table>
-        <div class="pagination ">
-            {{ knp_pagination_render(properties) }}
+            </table>
+            <div class="paginator">
+                {{ knp_pagination_render(properties) }}
+            </div>
         </div>
     </div>
-     </div>
 {% endblock %}

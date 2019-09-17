@@ -41,17 +41,6 @@ class PropertyRepository extends ServiceEntityRepository
         ->getResult()
     ;
     }
-
-    public function findSlider(): array
-    {
-        return $this->findVisibleQuery()
-        ->setMaxResults(10)
-        ->orderBy('p.id', 'DESC')
-        ->getQuery()
-        ->getResult()
-    ;
-    }
-
     
     private function findVisibleQuery(): QueryBuilder
     {
@@ -69,7 +58,7 @@ class PropertyRepository extends ServiceEntityRepository
             WHERE e.title LIKE :str'
         )
         ->setParameter('str', '%'.$str.'%')
-        ->setMaxResults(10)
+        ->setMaxResults(6)
         ->getResult();
     }
     
@@ -83,7 +72,7 @@ class PropertyRepository extends ServiceEntityRepository
     }
     /**
      * @param $array
-     * @return Product[]
+     * @return Property[]
      */
     public function findArray($array): array
     {

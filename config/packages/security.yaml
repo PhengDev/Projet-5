@@ -37,9 +37,6 @@ security:
          - { path: ^/profil, roles: [ROLE_USER, ROLE_ADMIN] }
          - { path: ^/edition, roles: [ROLE_USER, ROLE_ADMIN] }
          - { path: ^/panier, roles: [ROLE_USER, ROLE_ADMIN] }
-         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-         - { path: ^/registration, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-         - { path: ^/resetting, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     
     encoders: 
         App\Entity\User:

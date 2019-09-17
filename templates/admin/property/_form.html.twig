@@ -1,5 +1,5 @@
 {{ form_start(form) }}
-<div class="d-flex flex-wrap text-center bg-info p-2 formProperty">
+<div class="d-flex flex-wrap text-center bg-info mb-4 p-2 formProperty">
     <div class='col-md-3'>
         <div >{{ form_label(form.title,'Titre') }}</div>
         <div >{{ form_widget(form.title) }} </div>
@@ -60,12 +60,12 @@
         <div >{{ form_label(form.quantity,'Quantity') }}</div>
         <div>{{ form_widget(form.quantity) }} </div>
     </div>
-     <div class='col-md-3'>
+    <div class='col-md-3'>
        <div>{{ form_label(form.price,'Prix') }}</div>
         <div>{{ form_widget(form.price) }} </div>
     </div>
 
-    <div class='col-md-3'>
+     <div class='col-md-3'>
         <div >{{ form_label(form.imageFile,'Upload une image') }}</div>
         <div >{{ form_widget(form.imageFile) }} </div>
     </div>
@@ -73,12 +73,17 @@
         <div >{{ form_label(form.sold,'Rupture de stock') }}</div>
         <div>{{ form_widget(form.sold) }} </div>
     </div>
-     <div class='col-md-3'>
-       <div>{{ form_label(form.price,'Prix') }}</div>
-        <div>{{ form_widget(form.price) }} </div>
+     
+     <div class="ml-auto p-2 bd-highlight">
+ {% if property.filename %}
+            <img src="{{ vich_uploader_asset(property, 'imageFile') | imagine_filter('thumb') }}" alt="card-img-top">
+   {% endif %}
+     </div>
+   <div class='col-md-3'>
+     
     </div>
-
-    <button class="btn btn-primary mt-4">{{ button|default('Enregistrer') }}</button>
-    {{ form_widget(form) }}
 </div>
+    <button class="btn btn-primary mt-2 mb-4 btn-property">{{ button|default('Enregistrer') }}</button>
+    
+
 {{ form_end(form) }}

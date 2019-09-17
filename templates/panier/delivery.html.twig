@@ -18,6 +18,7 @@
                 <tbody>
                     {% set somme = 0 %}
                     {% for property in properties  %}
+                      <form action="{{ path('panier.validation',{"id": property.id}) }}" method="get">
                         <tr>
                             <td>{{ property.seriesType }}</td>
                             <td>
@@ -31,19 +32,19 @@
                             <td>
                                 {{ panier[property.id] }}
                             </td>
-                            <td>{{ property.price }}
+                            <td>{{ property.formatedPrice }}
                                 €</td>
-                            <td>{{ (property.price * panier[property.id])|number_format(0, '', '.') }}
+                            <td>{{ (property.formatedPrice * panier[property.id])|number_format(2, '.', ' ') }}
                                 €</td>
                         </tr>
-                        {% set somme = somme + property.price * panier[property.id] %}
+                        {% set somme = somme + property.formatedPrice * panier[property.id] %}
                     {% endfor %}
                 </tbody>
                 <tfoot class="mb-4">
                     <tr>
                         <th colspan="5" class="text-right">Total Commande:</th>
                         <th>
-                            {{ somme|number_format(0, '', '.') }}€</th>
+                            {{ somme|number_format(2, '.', ' ') }}€</th>
                     </tr>
                     <tr>
                         <th colspan="2">Mode paiement:
@@ -60,10 +61,11 @@
                         </th>
                         <th colspan="2" class="card-text text-center">
                             <a href="{{ path('panier') }}" class="btn btn-primary">Retour</a>
-                            <a class="btn btn-success" role="button" href="{{ path('panier.validation') }}">Confirmer la commande</a>
+                            <button class="btn btn-success" role="button" type="submit">Confirmer la commande</button>
                         </th>
                     </tr>
                 </tfoot>
+                </form>
             </table>
         </div>
     </div>

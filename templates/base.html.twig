@@ -20,25 +20,34 @@
             <a class="navbar-brand" href="{{ path('home') }}">
             <img src="{{ '/images/logo/logo.png' }}" class="logo">
             </a>
-            <button class="navbar-toggler black-color" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+
+         <div class="navbar-toggler form-inline active-cyan-4 mr-2 search-respons" data-target="#navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <input aria-label="Recherche" class="form-control form-control-sm mr-3 w-75 search" placeholder="Recherche" type="text">
+            <i aria-hidden="true" class="fas fa-search"></i>
+            <div class="position-absolute bg-white entitiesNav"></div>
+        </div>
+
+         <button class="navbar-toggler first-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <div class="animated-icon1"><span></span><span></span><span></span></div>
+        </button>
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-4">
+                <ul class="navbar-nav mr-2">
                     <li class="nav-item">
                         <a class="nav-link black-color{% if current_menu is defined and current_menu == 'properties' %}active btn btn-primary{% endif %}" href="{{ path('property.collection') }}">Collection</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav mr-4">
+                <ul class="navbar-nav mr-2">
                     <li class="nav-item">
                         <a class="nav-link black-color{% if current_menu is defined and current_menu == 'contact' %}active btn btn-primary{% endif %}" href="{{ path('contact') }}">Contact</a>
                     </li>
                 </ul>
-                <div class="form-inline active-cyan-4 mr-4">
-                    <input aria-label="Recherche" class="form-control form-control-sm mr-3 w-75" id="search" placeholder="Recherche" type="text">
+                <div class="form-inline active-cyan-4 mr-2 search-norespons">
+                    <input aria-label="Recherche" class="form-control form-control-sm mr-3 w-75 search" placeholder="Recherche" type="text">
                
                     <i aria-hidden="true" class="fas fa-search"></i>
-                     <div class="position-absolute bg-white" id="entitiesNav"></div>
+                     <div class="position-absolute bg-white entitiesNav"></div>
                 </div>
 
             {% if is_granted('ROLE_USER') %}
@@ -66,7 +75,7 @@
             {% else %}
                 <ul class="navbar-nav nav">
                     <li class="nav-item">
-                        <a class="nav-link black-color mr-4 {% if current_menu is defined and current_menu == 'login' %}active btn btn-primary text-white{% endif %}" href="{{ path('login') }}">
+                        <a class="nav-link black-color mr-2 {% if current_menu is defined and current_menu == 'login' %}active btn btn-primary text-white{% endif %}" href="{{ path('login') }}">
                             <i class="fas fa-sign-in-alt mr-2"></i>Se connecter</a>
                     </li>
                     <li class="nav-item">
@@ -80,28 +89,28 @@
    {% block body %}{% endblock %}
    {% block javascripts %}{% endblock %}
      <footer class="font-small bg-dark pt-2">
-     <div class="d-flex justify-content-between">
-     <div class="span3 push-left text-white ml-5">
-                <dl class="push-left">
-                    <dt><h4>CONTACTS</h4></dt>
-                    <dt class="mb-2"><i class="fas fa-map-marker-alt mr-2"></i>Adresse : 8 Place du Château, 30000 Nîmes</dt>
-                    <dt><i class="fas fa-phone-alt mr-2"></i>Numéro : 06 07 08 09 10</dt>
-                </dl>
+     <div class="d-flex justify-content-between footer-base">
+            <div class="span3 text-white mr-5">
+                <ul>
+                    <li><h4>CONTACTS</h4></li>
+                    <li class="mb-2"><i class="fas fa-map-marker-alt mr-2"></i>Adresse : 8 Place du Château, 30000 Nîmes</li>
+                    <li><i class="fas fa-phone-alt mr-2"></i>Numéro : 06 07 08 09 10</li>
+                </ul>
             </div>
-            <div class="span3 push-right text-center text-white mr-5">
-                <dl class=" push-right">
-                    <dt><h4>INFORMATIONS</h4></dt>
-                    <dt class="mb-2"><a href="#">CGU</a></dt>
-                    <dt><a href="#">Mentions légales</a></dt>
-                </dl>
+            <div class="span3 text-center text-white mr-5">
+                <ul>
+                    <li><h4>INFORMATIONS</h4></li>
+                    <li class="mb-2"><a href="#">CGU</a></li>
+                    <li><a href="#">Mentions légales</a></li>
+                </ul>
             </div>
-             <div class="span3 push-right text-center text-white mr-5">
-                <dl class=" push-right">
-                    <dt><h4>LIENS</h4></dt>
-                    <dt><a href="#"><i class="fab fa-facebook-square lien-logo"></i></a></dt>
-                    <dt><a href="#"><i class="fab fa-twitter-square lien-logo"></i></a></dt>
-                    <dt><a href="#"><i class="fab fa-instagram lien-logo"></i></a></dt>
-                </dl>
+             <div class="span3 text-center text-white mr-5">
+                <ul>
+                    <li><h4>LIENS</h4></li>
+                    <li><a href="#"><i class="fab fa-facebook-square lien-logo"></i></a></li>
+                    <li><a href="#"><i class="fab fa-twitter-square lien-logo"></i></a></li>
+                    <li><a href="#"><i class="fab fa-instagram lien-logo"></i></a></li>
+                </ul>
             </div>
             </div>
         <div class="clearfix"></div>
@@ -149,7 +158,7 @@
                                     if (key == "properties") {
                                         if (id != 'error') {
                                         const link = document.createElement("a");
-                                        $(link).addClass("text-primary");
+                                        $(link).addClass("text-primary result-search");
                                         $(link).attr("href",'/collection/' + resutls + '-' + id + '');
                                         $(link).html('' + resutls + ' <hr>');
                                         $(showResult).append(link);
@@ -175,15 +184,30 @@
 
 function initSearch() {
     new SearchBar({
-        target: $("#search"), 
-        showResult: $('#entitiesNav')
+        target: $(".search"), 
+        showResult: $('.entitiesNav')
         });
+}
+
+function navButton(){
+    $('.first-button').on('click', function () {
+        $('.animated-icon1').toggleClass('open');
+    });
+
+    $('.second-button').on('click', function () {
+        $('.animated-icon2').toggleClass('open');
+    });
+
+    $('.third-button').on('click', function () {
+        $('.animated-icon3').toggleClass('open');
+    });
 }
 
 if (window) {
     window.addEventListener("load", () => {
-        initSearch();
-    })
+    initSearch();
+    navButton();
+    });
 }
 </script>
 </body>

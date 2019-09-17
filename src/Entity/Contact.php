@@ -2,10 +2,8 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Annotations\AnnotationRegistry;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints as Assert;
-
-AnnotationRegistry::registerAutoloadNamespace("Symfony\Component\Validator\Constraint", "path/to/symfony/library/validator");
 
 class Contact
 {
@@ -13,6 +11,7 @@ class Contact
     /**
      * @var string|null
      * @Assert\NotBlank()
+     * @Length(max=125)
      * 
      */
     private $firstname;
@@ -20,14 +19,14 @@ class Contact
      /**
      * @var string|null
      * @Assert\NotBlank()
-     *
+     * @Length(max=125)
      */
     private $lastname;
 
      /**
      * @var string|null
      * @Assert\NotBlank()
-     * @Assert\Regex(pattern="/[0-9]{10}/")
+     * @Assert\Regex(pattern="/[0-9]{10}/",message="Il doit contenir 10 chiffre entre 0 et 9")
      */
     private $phone;
 
@@ -41,12 +40,12 @@ class Contact
       /**
      * @var string|null
      * @Assert\NotBlank()
-     *
+     * @Length(min=5,max=255)
      */
     private $message;
 
     /**
-     * Get the value of message
+     * Get the value of message 
      *
      * @return  string|null
      */ 

@@ -48,22 +48,19 @@ class User implements UserInterface, \Serializable
     public function __construct()
     {
         $this->isActive = true;
-        $this->adress = new ArrayCollection();
     }
     
-
     /**
      *  @Assert\EqualTo(propertyPath="password", message="Vos mots de passe ne se correspondes pas")
      */
     public $confirm_password;
     
-
     /**
      * @ORM\Column(type="array")
      */
     private $roles = [];
 
-     // ...
+    
     /**
      * @ORM\Column(type="datetime", nullable=true)
      * @var \DateTime
@@ -223,5 +220,4 @@ class User implements UserInterface, \Serializable
         $this->isActive = $isActive;
         return $this;
     }
-
 }

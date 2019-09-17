@@ -247,7 +247,7 @@ class Property
     private $sold = false;
 
     /**
-     * @ORM\Column(type="decimal", precision=12, scale=2)
+     * @ORM\Column(type="decimal", precision=5, scale=2)
      */
     private $price;
     
@@ -311,6 +311,11 @@ class Property
     public function getPrice(): ?int
     {
         return $this->price;
+    }
+
+    public function getFormatedPrice(): string
+    {
+        return number_format($this->price, 2, '.', ' ');
     }
 
     public function getFormatedPower(): string
