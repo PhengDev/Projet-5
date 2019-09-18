@@ -36,7 +36,7 @@ class AdminPropertyController extends AbstractController
         $property = $paginator->paginate($this->repository->findAllVisible(),
         $request->query->getInt('page',1),12);
         return $this->render("admin/property/index.html.twig",[
-            'properties'=>$property
+            'propertys'=>$property
         ]);
     }
 

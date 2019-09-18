@@ -78,6 +78,7 @@ class PropertyController extends AbstractController
           $result['properties']['error']= "Aucun résultat";
       } else {
           $result['properties'] = $this->getSlugProperty($properties);
+          $test['test'] = $this->getTitleProperty($properties);
       }
       return new JsonResponse($result);
   }
@@ -85,6 +86,12 @@ class PropertyController extends AbstractController
   public function getSlugProperty($properties){
     foreach ($properties as $property){
         $realProperty[$property->getId()] = $property->getSlug();
+    }
+    return $realProperty;
+}
+public function getTitleProperty($properties){
+    foreach ($properties as $property){
+        $realProperty[$property->getId()] = $property->getTitle();
     }
     return $realProperty;
 }

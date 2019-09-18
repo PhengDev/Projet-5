@@ -43,13 +43,16 @@ class UserController extends AbstractController
     	$form = $this->createForm(UserType::class, $user, [
             'validation_groups' => array('profil'),
         ]);
+        $users =  $this->em->getRepository('App:User')->findAll();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($users->getEmail() === $user->getEmail()){
+                $request->getSession()->getFlashBag()->add('error', 'Adresse email déjà utilisé');
+            } else {
             $this->em->flush();
             $request->getSession()->getFlashBag()->add('success', 'Votre profil bien a été modifié');
             return $this->redirectToRoute('profil');
-        } else {
-            $form->addError(new FormError('Ancien mot de passe incorrect'));
+            }
         }
         return $this->render('profil/editProfil.html.twig', [
             'form' => $form->createView()

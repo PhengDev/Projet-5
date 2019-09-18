@@ -3,10 +3,10 @@
 
 {% block body %}
     <div class="container style-link text-center page">
-        <a class="bg-primary text-white backup rounded" href="{{ path('admin.property.index') }}">Retour sur l'administration</a>
+        <a class="bg-primary text-white backup rounded" href="{{ path('admin.article.index') }}">Retour sur l'administration</a>
         <div class="container text-center mt-4 mb-4">
             <h1>Edition</h1>
-            {{ include('admin/property/_form.html.twig', {form: form, button: 'Editer'}) }}
+            {{ include('admin/article/_form.html.twig', {form: form, button: 'Editer'}) }}
         </div>
     </div>
 {% endblock %}

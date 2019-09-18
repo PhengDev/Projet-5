@@ -5,7 +5,7 @@
     <div class="jumbotron text-center page mb-0">
         <h1>Administration</h1>
         <div class="container text-center">
-            <a href="{{ path('admin.property.new') }}" class="btn btn-primary">Ajouter une nouvelle article</a>
+            <a href="{{ path('admin.article.new') }}" class="btn btn-primary">Ajouter une nouvelle article</a>
             {% for message in app.flashes('success') %}
                 <div class="alert alert-success">
                     {{ message }}
@@ -23,16 +23,16 @@
                     </tr>
                 </thread>
                 <tbody>
-                    {% for property in properties %}
+                    {% for article in articles %}
                         <tr>
                             <td>
-                                {{property.title}}
+                                {{article.title}}
                             </td>
                             <td>
-                                <a href="{{ path('admin.property.edit', {id: property.id}) }}" class="btn btn-secondary">Editer</a>
-                                <form method="post" action="{{ path('admin.property.delete', {id: property.id}) }}" style="display: inline-block" onsubmit="return confirm('Voulez vous vraiment le supprimer ?')">
+                                <a href="{{ path('admin.article.edit', {id: article.id}) }}" class="btn btn-secondary">Editer</a>
+                                <form method="post" action="{{ path('admin.article.delete', {id: article.id}) }}" style="display: inline-block" onsubmit="return confirm('Voulez vous vraiment le supprimer ?')">
                                     <input name="_method" type="hidden" value="DELETE">
-                                    <input type="hidden" name="token" value="{{ csrf_token('delete' ~ property.id) }}">
+                                    <input type="hidden" name="token" value="{{ csrf_token('delete' ~ article.id) }}">
                                     <button class="btn btn-danger">Supprimer</button>
                                 </form>
                             </td>
@@ -41,7 +41,7 @@
                 </tbody>
             </table>
             <div class="paginator">
-                {{ knp_pagination_render(properties) }}
+                {{ knp_pagination_render(articles) }}
             </div>
         </div>
     </div>
