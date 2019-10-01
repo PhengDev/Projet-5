@@ -57,4 +57,14 @@ class ContactNotification
         $this->mailer->send($messageAdmin);
     }
     
+    public function resetpassword(Contact $contact)
+    {
+        $message = (new \Swift_Message('DrakeBallShop: Contact :'. $contact->getEmail()))
+        ->setFrom('pheng.ly300@gmail.com')
+        ->setTo('pheng.ly300@gmail.com')
+        ->setBody($this->renderer->render('emails/contact.html.twig', [
+            'contact' => $contact
+        ]), 'text/html');
+        $this->mailer->send($message);
+    }
 }

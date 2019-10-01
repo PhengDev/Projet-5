@@ -29,6 +29,26 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function findOneByEmail($email): ?User
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.email = :email')
+            ->setParameter('email', $email)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
+    public function findOneByResetToken($resetToken): ?User
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.resetToken = :resetToken')
+            ->setParameter('resetToken', $resetToken)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
     
     // /**
     //  * @return User[] Returns an array of User objects
